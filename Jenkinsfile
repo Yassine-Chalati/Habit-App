@@ -5,8 +5,8 @@ pipeline {
       steps {
         echo 'Hello from JenkinsFile'
         sh '''mvn --version
-gradle --version
-npm --version'''
+'''
+        sh 'gradle --version'
       }
     }
 
