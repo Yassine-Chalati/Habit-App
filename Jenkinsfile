@@ -4,7 +4,7 @@ pipeline {
     stage('Hello') {
       steps {
         echo 'Hello from JenkinsFile'
-        sh 'gradle --version'
+        sh 'java --version'
       }
     }
 
