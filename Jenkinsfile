@@ -7,7 +7,6 @@ pipeline {
 
 
         sh '''mvn --version
-        gradle --version
         sonar-scanner --version'''
 
       }
