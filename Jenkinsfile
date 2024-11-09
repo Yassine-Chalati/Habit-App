@@ -9,7 +9,6 @@ pipeline {
 
       }
       steps {
-        githubNotify(context: 'Build', status: 'PENDING', description: 'Build started')
         echo 'Hello from JenkinsFile'
         sh 'mvn --version'
         sh 'gradle --version'
