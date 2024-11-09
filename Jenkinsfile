@@ -4,8 +4,12 @@ pipeline {
     stage('Hello') {
       steps {
         echo 'Hello from JenkinsFile'
-        sh 'mvn --vdsfj'
-        sh 'gradle --version'
+
+
+        sh '''mvn --version
+        gradle --version
+        sonar-scanner --version'''
+
       }
     }
 
