@@ -3,11 +3,20 @@ pipeline {
   stages {
     stage('Hello') {
       steps {
+        githubNotify context: 'Build', status: 'PENDING', description: 'Build started'
         echo 'Hello from JenkinsFile'
-        sh '''mv6846465
-sonar-scanner --version'''
+        sh 'mvn --vdsfj'
+        sh 'gradle --version'
+      }
+
+      post {
+        success {
+          githubNotify context: 'Build', status: 'SUCCESS', description: 'Build succeeded'
+        }
+        failure {
+          githubNotify context: 'Build', status: 'FAILURE', description: 'Build failed'
+        }
       }
     }
-
   }
 }
