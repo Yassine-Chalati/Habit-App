@@ -10,11 +10,8 @@ pipeline {
       }
 
       post {
-        success {
-          githubNotify context: 'Build', status: 'SUCCESS', description: 'Build succeeded'
-        }
-        failure {
-          githubNotify context: 'Build', status: 'FAILURE', description: 'Build failed'
+         always {
+            githubChecksSend checkName: 'Build', detailsURL: "${env.BUILD_URL}", status: 'completed', conclusion: 'success'
         }
       }
     }
