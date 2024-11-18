@@ -1,0 +1,19 @@
+package com.menara.authentication.common.utlil.generator.id;
+
+import com.menara.authentication.annotation.Util;
+import com.menara.authentication.common.utlil.converter.ConverterUtil;
+import lombok.AllArgsConstructor;
+
+import java.util.UUID;
+
+@Util
+@AllArgsConstructor
+public class GenerateUniqueIdUtil {
+    private static long count = 0;
+    private ConverterUtil converterUtil;
+
+    public synchronized String generateUniqueId(){
+
+        return converterUtil.bytesToHexadecimal((UUID.randomUUID().toString() + (Math.abs(++count))).getBytes());
+    }
+}
