@@ -102,6 +102,9 @@ mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\\
     }
 
     stage('Backend Deploy Phase') {
+      when {
+        branch 'main'
+      }
       steps {
         echo 'Deploy Phase'
         sh '''cd BackEnd
