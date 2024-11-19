@@ -16,9 +16,6 @@ mvn clean'''
             sh '''cd BackEnd
 export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn validate'''
-            sh '''cd BackEnd/scripts
-chmod +x environment-variable.sh
-./environment-variable.sh'''
           }
         }
 
@@ -50,7 +47,12 @@ mvn test-compile'''
       steps {
         echo 'Unit Test Phase'
         sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
-cd BackEnd
+
+cd BackEnd/scripts
+chmod +x environment-variable.sh
+./environment-variable.sh
+
+cd ..
 mvn surefire:test'''
       }
     }
@@ -59,7 +61,12 @@ mvn surefire:test'''
       steps {
         echo 'Integration Test Phase'
         sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
-cd BackEnd
+
+cd BackEnd/scripts
+chmod +x environment-variable.sh
+./environment-variable.sh
+
+cd ..
 mvn failsafe:integration-test failsafe:verify
 '''
       }
@@ -78,7 +85,12 @@ mvn package'''
       steps {
         echo 'Quality Code Test Phase'
         sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
-cd BackEnd
+
+cd BackEnd/scripts
+chmod +x environment-variable.sh
+./environment-variable.sh
+
+cd ..
 mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000 -Dsonar.token=sqp_4df33d6a801906f9ffe3336d3dfa2cea823fcf0c'''
       }
     }
