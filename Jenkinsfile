@@ -97,7 +97,7 @@ chmod +x environment-variable.sh
 source environment-variable.sh
 
 cd ..
-mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000 -Dsonar.token=sqp_4df33d6a801906f9ffe3336d3dfa2cea823fcf0c'''
+mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\\\'Habit-App\\\'  -Dsonar.host.url=http://77.37.86.136:9000 -Dsonar.token=sqp_4df33d6a801906f9ffe3336d3dfa2cea823fcf0c -Dsonar.qualitygate.wait=true'''
       }
     }
 
