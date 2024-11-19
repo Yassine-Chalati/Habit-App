@@ -1,30 +1,53 @@
-version: '3.2'
+# version: '3.2'
+# services:
+#   prometheus:
+#     image: prom/prometheus:latest
+#     container_name: prometheus
+#     ports:
+#     - 9090:9090
+#     command:
+#     - --config.file=/etc/prometheus/prometheus.yml
+#     volumes:
+#     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+#     depends_on:
+#     - cadvisor
+#   cadvisor:
+#     image: gcr.io/cadvisor/cadvisor:latest
+#     container_name: cadvisor
+#     ports:
+#     - 8080:8080
+#     volumes:
+#     - /:/rootfs:ro
+#     - /var/run:/var/run:rw
+#     - /sys:/sys:ro
+#     - /var/lib/docker/:/var/lib/docker:ro
+#     depends_on:
+#     - redis
+#   redis:
+#     image: redis:latest
+#     container_name: redis
+#     ports:
+#     - 6379:6379
+
+
+version: '3.8'
+
 services:
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
+  mysql:
+    image: mysql:8.0 # You can use any MySQL version
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234  # Set root password
     ports:
-    - 9090:9090
-    command:
-    - --config.file=/etc/prometheus/prometheus.yml
+      - "3307:3307"  # Expose MySQL on port 3306
     volumes:
-    - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    depends_on:
-    - cadvisor
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    ports:
-    - 8080:8080
-    volumes:
-    - /:/rootfs:ro
-    - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker/:/var/lib/docker:ro
-    depends_on:
-    - redis
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-    - 6379:6379
+      - mysql-data:/var/lib/mysql  # Persist MySQL data
+    networks:
+      - mysql-network
+
+volumes:
+  mysql-data:  # This will store the data persistently
+
+networks:
+  mysql-network:
+    driver: bridge

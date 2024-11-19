@@ -25,16 +25,16 @@
 	</properties>
 
 	<modules>
-		<module>authentication-service</module>
-		<module>common</module>
-		<module>config-service</module>
-		<module>emailing-service</module>
-		<module>gateway-service</module>
-		<module>notification-service</module>
-		<module>profile-service</module>
-		<module>progress-service</module>
-		<module>registry-service</module>
-		<module>reward-service</module>
+		<!-- <module>authentication-service</module> -->
+		<!-- <module>common</module> -->
+		<!-- <module>config-service</module> -->
+		<!-- <module>emailing-service</module> -->
+		<!-- <module>gateway-service</module> -->
+		<!-- <module>notification-service</module> -->
+		<!-- <module>profile-service</module> -->
+		<!-- <module>progress-service</module> -->
+		<!-- <module>registry-service</module> -->
+		<!-- <module>reward-service</module> -->
 	</modules>
 
 	<dependencies>
@@ -85,11 +85,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.7.0-RC1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
@@ -97,6 +92,11 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		 </dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -125,6 +125,39 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+			  </plugin>
+			  <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.5.2</version>
+				<executions>
+				  <execution>
+					<goals>
+					  <goal>integration-test</goal>
+					  <goal>verify</goal>
+					</goals>
+				  </execution>
+				</executions>
+			  </plugin>
+			  <plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
+			  </plugin>
+			  <plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+			  </plugin>
+			  <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version> <!-- Choose the appropriate version -->
+			  </plugin>
 		</plugins>
 	</build>
 </project>

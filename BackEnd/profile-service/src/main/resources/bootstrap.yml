@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: profile-service
+  profiles:
+    active: ${PROFILES}, authenticationUser
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-service
+      fail-fast: true
+      retry:
+        max-attempts: 10
+      label: ${GIT_BRANCH}
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 7
+  client:
+    refresh:
+      enable: false
+    service-url:
+      defaultZone: ${HTTP}://${BASIC_AUTH_EUREKA}${DNS}/eureka/
