@@ -5,14 +5,13 @@ pipeline {
       parallel {
         stage('Backend Validate Phase') {
           steps {
-            sh 'cd BackEnd/common'
-            sh '''mvn install
-cd ..
-cd ..'''
-            sh 'cd BackEnd'
-            sh 'mvn clean'
+            sh '''cd BackEnd/common
+mvn install'''
+            sh '''cd BackEnd
+mvn clean'''
             echo 'Validate Phase'
-            sh 'mvn validate'
+            sh '''cd BackEnd
+mvn validate'''
           }
         }
 
