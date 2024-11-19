@@ -51,6 +51,9 @@ mvn test-compile'''
 cd BackEnd/scripts
 chmod +x environment-variable.sh
 ./environment-variable.sh
+source environment-variable.sh
+
+echo $PROFILES
 
 cd ..
 mvn surefire:test'''
@@ -65,6 +68,10 @@ mvn surefire:test'''
 cd BackEnd/scripts
 chmod +x environment-variable.sh
 ./environment-variable.sh
+
+source environment-variable.sh
+
+echo $PROFILES
 
 cd ..
 mvn failsafe:integration-test failsafe:verify
