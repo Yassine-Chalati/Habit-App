@@ -6,12 +6,15 @@ pipeline {
         stage('Backend Validate Phase') {
           steps {
             sh '''cd BackEnd/common
+export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn -v
 mvn install'''
             sh '''cd BackEnd
+export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn clean'''
             echo 'Validate Phase'
             sh '''cd BackEnd
+export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn validate'''
           }
         }
@@ -37,7 +40,8 @@ mvn validate'''
           steps {
             echo 'Compile Phase'
             sh 'cd BackEnd'
-            sh 'mvn test-compile'
+            sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+mvn test-compile'''
           }
         }
 
@@ -60,7 +64,8 @@ mvn validate'''
       steps {
         echo 'Unit Test Phase'
         sh 'cd BackEnd'
-        sh 'mvn surefire:test'
+        sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+mvn surefire:test'''
       }
     }
 
@@ -68,7 +73,8 @@ mvn validate'''
       steps {
         echo 'Integration Test Phase'
         sh 'cd BackEnd'
-        sh '''mvn failsafe:integration-test failsafe:verify
+        sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+mvn failsafe:integration-test failsafe:verify
 '''
       }
     }
@@ -77,7 +83,8 @@ mvn validate'''
       steps {
         echo 'mvn package'
         sh 'cd BackEnd'
-        sh 'mvn package'
+        sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+mvn package'''
       }
     }
 
@@ -85,7 +92,8 @@ mvn validate'''
       steps {
         echo 'Quality Code Test Phase'
         sh 'cd BackEnd'
-        sh 'mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000 -Dsonar.token=sqp_4df33d6a801906f9ffe3336d3dfa2cea823fcf0c'
+        sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000 -Dsonar.token=sqp_4df33d6a801906f9ffe3336d3dfa2cea823fcf0c'''
       }
     }
 
