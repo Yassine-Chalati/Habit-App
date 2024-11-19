@@ -51,7 +51,6 @@ mvn test-compile'''
 cd BackEnd/scripts
 chmod +x environment-variable.sh
 ./environment-variable.sh
-source environment-variable.sh
 
 echo $PROFILES
 
@@ -68,8 +67,6 @@ mvn surefire:test'''
 cd BackEnd/scripts
 chmod +x environment-variable.sh
 ./environment-variable.sh
-
-source environment-variable.sh
 
 echo $PROFILES
 
