@@ -17,7 +17,8 @@ mvn clean'''
 export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn validate'''
             sh '''cd BackEnd/scripts
-source environment-variable.sh'''
+chmod +x environment-variable.sh
+./environment-variable.sh'''
           }
         }
 
