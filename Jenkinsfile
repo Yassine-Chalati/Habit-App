@@ -50,7 +50,7 @@ mvn test-compile'''
 
 cd BackEnd/scripts
 chmod +x environment-variable.sh
-. environment-variable.sh
+sh environment-variable.sh
 
 echo $PROFILES
 
