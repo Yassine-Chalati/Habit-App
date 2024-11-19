@@ -33,7 +33,7 @@
 		<!-- <module>notification-service</module> -->
 		<!-- <module>profile-service</module> -->
 		<!-- <module>progress-service</module> -->
-		<module>registry-service</module>
+		<!-- <module>registry-service</module> -->
 		<!-- <module>reward-service</module> -->
 	</modules>
 
@@ -152,6 +152,11 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+			  </plugin>
+			  <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version> <!-- Choose the appropriate version -->
 			  </plugin>
 		</plugins>
 	</build>
