@@ -35,28 +35,11 @@ mvn validate'''
     }
 
     stage('Backend Compile Phase') {
-      parallel {
-        stage('Backend Compile Phase') {
-          steps {
-            echo 'Compile Phase'
-            sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
+      steps {
+        echo 'Compile Phase'
+        sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
 cd BackEnd
 mvn test-compile'''
-          }
-        }
-
-        stage('FrontEnd Compile Phase') {
-          steps {
-            echo 'Hello'
-          }
-        }
-
-        stage('Mobile Compile Phase') {
-          steps {
-            sh 'Hello Mobile'
-          }
-        }
-
       }
     }
 
