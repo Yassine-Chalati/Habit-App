@@ -105,7 +105,7 @@ mvn validate sonar:sonar -e -Dsonar.projectKey=Habit-App  -Dsonar.projectName=\\
       steps {
         echo 'Deploy Phase'
         sh '''cd BackEnd
-docker compose up'''
+docker compose up -d'''
       }
     }
 
