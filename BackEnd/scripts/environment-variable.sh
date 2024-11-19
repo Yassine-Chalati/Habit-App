@@ -1,7 +1,9 @@
+#!/bin/bash
+
 export PORT_EUREKA="7002"
 export PROFILES="dev"
 export HOSTNAME_EUREKA="localhost"
-export USERNAME_EUREKA="aPsDMJnpQD9dTdEx3qfgoPy9YcJfz8iridqunderTSRLXYSbKasTe8xPLrdpTkAdY7BdpedzRYTunder_id-menara-holding-service-eureka"
+export USERNAME_EUREKA="aPsDMJnpQD9dTdEx3qfgoPy9YcJfz8iridqunderTSRLXYSbKasTe8xPLrdpTkAdY7BdpedzRYTunder_id-habit-app-service-eureka"
 export PASSWORD_EUREKA="LCwJSPdLDjYZPI57E5UPDBBdPsPKCaWUVz8fMYQYY7ZDCUhgnYHyMEtuI4bbCkSGvwjpjLph4KcBtNBXKBn8YX6udkZrQZ2FKShBDCC6ynyj463sXS9V4KS4HpC3yBDDX9SNXYbGPLJyznSP52zV8YD7xDySjCcHXa354MnPKd3Gs3AGBB6PQvEtUDSm4JdS"
 export GIT_BRANCH="main"
 export DNS="${HOSTNAME_EUREKA}:${PORT_EUREKA}"
