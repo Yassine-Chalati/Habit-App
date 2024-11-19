@@ -6,12 +6,12 @@ pipeline {
         stage('Backend Validate Phase') {
           steps {
             sh '''cd BackEnd/common
-mvn install'''
+mvn install -Dmaven.java.home=/opt/java/jdk-21.0.4/bin'''
             sh '''cd BackEnd
-mvn clean'''
+mvn clean -Dmaven.java.home=/opt/java/jdk-21.0.4/bin'''
             echo 'Validate Phase'
             sh '''cd BackEnd
-mvn validate'''
+mvn validate -Dmaven.java.home=/opt/java/jdk-21.0.4/bin'''
           }
         }
 
