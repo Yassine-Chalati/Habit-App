@@ -76,7 +76,13 @@ mvn failsafe:integration-test failsafe:verify
       steps {
         echo 'mvn package'
         sh '''export JAVA_HOME=/opt/java/jdk-21.0.5
-cd BackEnd
+
+cd BackEnd/scripts
+chmod +x environment-variable.sh
+source environment-variable.sh
+
+cd ..
+
 mvn package'''
       }
     }
