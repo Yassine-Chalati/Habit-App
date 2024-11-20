@@ -33,7 +33,7 @@
 		<!-- <module>notification-service</module> -->
 		<!-- <module>profile-service</module> -->
 		<!-- <module>progress-service</module> -->
-		<!-- <module>registry-service</module> -->
+		<module>registry-service</module>
 		<!-- <module>reward-service</module> -->
 	</modules>
 
