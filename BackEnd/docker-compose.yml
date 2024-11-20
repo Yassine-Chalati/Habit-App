@@ -29,13 +29,13 @@
 #     ports:
 #     - 6379:6379
 
-
-version: '3.8'
+name: Habit-App-Backend
 
 services:
+
   mysql:
     image: mysql:8.0 # You can use any MySQL version
-    container_name: mysql-container
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234  # Set root password
     ports:
@@ -43,11 +43,26 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql  # Persist MySQL data
     networks:
-      - mysql-network
+      - habit-app
+  
+  registry-service:
+    build:
+      context: ./registry-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=registry-service-0.0.1-SNAPSHOT.jar
+    image: registry-service
+    container_name: registry-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - 8000:8000
+    networks:
+      - habit-app
 
 volumes:
-  mysql-data:  # This will store the data persistently
+  mysql-data:
 
 networks:
-  mysql-network:
+  habit-app:
     driver: bridge
