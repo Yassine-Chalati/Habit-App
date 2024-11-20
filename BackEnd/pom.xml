@@ -13,7 +13,7 @@
 	<groupId>com.habitapp</groupId>
 	<artifactId>starter-habitapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- <name>starter-habitapp</name> -->
+	<name>starter-habitapp</name>
 	<description>it s the starter project for our application</description>
 
 	<packaging>pom</packaging>
@@ -22,19 +22,11 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
-	</properties>
+		<sonar.coverage.jacoco.xmlReportPaths>C:\Users\Yassi\Desktop\EMSI\5IIR\S1\Projects\Habit Project\Source Code\Habit-App\BackEnd\registry-service\target\site\jacoco-aggregate\jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+	  </properties>
 
 	<modules>
-		<!-- <module>authentication-service</module> -->
-		<!-- <module>common</module> -->
-		<!-- <module>config-service</module> -->
-		<!-- <module>emailing-service</module> -->
-		<!-- <module>gateway-service</module> -->
-		<!-- <module>notification-service</module> -->
-		<!-- <module>profile-service</module> -->
-		<!-- <module>progress-service</module> -->
-		<!-- <module>registry-service</module> -->
-		<!-- <module>reward-service</module> -->
+		<module>registry-service</module>
 	</modules>
 
 	<dependencies>
@@ -152,6 +144,21 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			  </plugin>
 			  <plugin>
 				<groupId>org.codehaus.mojo</groupId>
