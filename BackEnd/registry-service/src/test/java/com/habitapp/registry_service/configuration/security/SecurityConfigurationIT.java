@@ -56,6 +56,7 @@ class SecurityConfigurationIT {
         @Bean
         public Credential credential() {
             return new Credential("testUser", "testPassword");
+            
         }
     }
 }
