@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 @EnableWebSecurity
 @Order(2)
 @AllArgsConstructor
-public class securityConfiguration {
+public class SecurityConfiguration {
     private Credential credential;
 
     @Bean

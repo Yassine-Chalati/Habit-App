@@ -2,7 +2,7 @@ FROM openjdk:21
 
 ARG JAR_FILE
 
-COPY target/${JAR_FILE} registry-service.jar
+COPY target/${JAR_FILE} config-service.jar
 
 # RUN export PORT_EUREKA=${PORT_EUREKA} && \
 #     export PROFILES=${PROFILES} && \
@@ -14,4 +14,4 @@ COPY target/${JAR_FILE} registry-service.jar
 #     export HTTP=${HTTP} && \
 #     export BASIC_AUTH_EUREKA=${USERNAME_EUREKA}:${PASSWORD_EUREKA}@
 
-ENTRYPOINT ["java", "-jar", "/registry-service.jar" ]
+ENTRYPOINT ["java", "-jar", "/config-service.jar" ]

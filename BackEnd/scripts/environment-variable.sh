@@ -1,13 +1,19 @@
 #!/bin/bash
 
-export PORT_EUREKA="7002"
+port=8000
+ip="localhost"
+username="aPsDMJnpQD9dTdEx3qfgoPy9YcJfz8iridqunderTSRLXYSbKasTe8xPLrdpTkAdY7BdpedzRYTunder_id-habit-app-service-eureka"
+password="LCwJSPdLDjYZPI57E5UPDBBdPsPKCaWUVz8fMYQYY7ZDCUhgnYHyMEtuI4bbCkSGvwjpjLph4KcBtNBXKBn8YX6udkZrQZ2FKShBDCC6ynyj463sXS9V4KS4HpC3yBDDX9SNXYbGPLJyznSP52zV8YD7xDySjCcHXa354MnPKd3Gs3AGBB6PQvEtUDSm4JdS"
+
+
+export PORT_EUREKA=$port
 echo $PORT_EUREKA
 export PROFILES="dev"
 echo $PROFILES
-export HOSTNAME_EUREKA="localhost"
-export USERNAME_EUREKA="aPsDMJnpQD9dTdEx3qfgoPy9YcJfz8iridqunderTSRLXYSbKasTe8xPLrdpTkAdY7BdpedzRYTunder_id-habit-app-service-eureka"
-export PASSWORD_EUREKA="LCwJSPdLDjYZPI57E5UPDBBdPsPKCaWUVz8fMYQYY7ZDCUhgnYHyMEtuI4bbCkSGvwjpjLph4KcBtNBXKBn8YX6udkZrQZ2FKShBDCC6ynyj463sXS9V4KS4HpC3yBDDX9SNXYbGPLJyznSP52zV8YD7xDySjCcHXa354MnPKd3Gs3AGBB6PQvEtUDSm4JdS"
+export HOSTNAME_EUREKA=$ip
+export USERNAME_EUREKA=$username
+export PASSWORD_EUREKA=$password
 export GIT_BRANCH="main"
-export DNS="${HOSTNAME_EUREKA}:${PORT_EUREKA}"
+export DNS="$ip:$port"
 export HTTP="http"
-export BASIC_AUTH_EUREKA="${USERNAME_EUREKA}:${PASSWORD_EUREKA}@"
+export BASIC_AUTH_EUREKA="$username:$password@"
