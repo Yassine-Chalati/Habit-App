@@ -22,11 +22,11 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
-		<sonar.coverage.jacoco.xmlReportPaths>C:\Users\Yassi\Desktop\EMSI\5IIR\S1\Projects\Habit Project\Source Code\Habit-App\BackEnd\registry-service\target\site\jacoco-aggregate\jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-	  </properties>
+	</properties>
 
 	<modules>
 		<module>registry-service</module>
+		<module>config-service</module>
 	</modules>
 
 	<dependencies>
@@ -88,7 +88,7 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.6.0</version>
-		 </dependency>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -121,26 +121,26 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.5.2</version>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.5.2</version>
 				<executions>
-				  <execution>
-					<goals>
-					  <goal>integration-test</goal>
-					  <goal>verify</goal>
-					</goals>
-				  </execution>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
 				</executions>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>4.0.0.4121</version>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
@@ -159,12 +159,12 @@
 						</goals>
 					</execution>
 				</executions>
-			  </plugin>
-			  <plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>4.0.0.4121</version> <!-- Choose the appropriate version -->
-			  </plugin>
+			</plugin>
 		</plugins>
 	</build>
 </project>

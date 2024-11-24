@@ -60,6 +60,22 @@ services:
     networks:
       - habit-app
 
+  config-service:
+    build:
+      context: ./config-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=config-service-0.0.1-SNAPSHOT.jar
+    image: config-service
+    container_name: config-service
+    env_file:
+      - ./environment/registry-information.env
+      - ./environment/config-information.env
+    ports:
+      - 8001:8001
+    networks:
+      - habit-app
+
 volumes:
   mysql-data:
 

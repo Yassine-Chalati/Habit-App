@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: ${PROFILES}
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${GIT_URI}
+          timeout: 60
+          username: ${USERNAME_GIT}
+          password: ${PASSWORD_GIT}
+          force-pull: true
+          try-master-branch: ${TRY_MASTER_BRANCH}
+          clone-on-start: true
+          search-paths:
+            - all-service
+            - authentication-service
+            - config-service
+            - emailing-service
+            - gateway-service
+            - internship-service
+            - user-service
+        bootstrap: true
+      allow-override: true
+      override-none: false
+
+credential:
+  username: nxdHfbsEZNvTHBcQRtHWejQkxTdJuedQhPhJKUozMoEFoNjzcLnvnQcDaXoxosrZQdkyxDxXkTdwMPukAtUvQfrTykEPVQdKptFG_id-habit-app-service-config
+  password: wdxAB$sBerYeJYWeWajmmGgI5yElkdWe3y#LMNf$UEX6#67Jq7h!8#ZLhspn7dbkG5D!MqLZqUrkluqmdzaKPt46Ld2$Zk6gqMndALmn8DKlepSs!a3B3A+hbnBdG$lIcUduQ9zX66IT#WUwZD+bk+YW2lcyLkHeGkIHckYd7bPzETaSfMx3Zk7mLKxplKeb
