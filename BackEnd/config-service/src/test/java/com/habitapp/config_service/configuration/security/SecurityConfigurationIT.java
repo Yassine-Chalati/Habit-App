@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -15,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.habitapp.config_service.configuration.record.Credential;
 
 @SpringBootTest
-@Import(SecurityConfiguration.class)
+
 class SecurityConfigurationIT {
     
     @Autowired
