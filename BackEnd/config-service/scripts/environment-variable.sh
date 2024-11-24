@@ -1,5 +1,4 @@
-export GIT_URI="https://github.com/Yassine-Chalati/Habit-App.git"
+export GIT_URI="https://github.com/Yassine-Chalati/HabitAppConfigurationRepository.git"
 export USERNAME_GIT="Yassine-Chalati"
-export PASSWORD_GIT="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"
-export GIT_SEARCH_PATH_PREFIX="ConfigurationRepository"
+export PASSWORD_GIT="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"
 export TRY_MASTER_BRANCH="false"

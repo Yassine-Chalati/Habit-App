@@ -1,6 +1,0 @@
-server:
-  port: 7000
-
-spring:
-  main:
-    web-application-type: reactive

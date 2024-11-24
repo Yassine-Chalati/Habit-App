@@ -15,14 +15,13 @@ spring:
           try-master-branch: ${TRY_MASTER_BRANCH}
           clone-on-start: true
           search-paths:
-            - ${GIT_SEARCH_PATH_PREFIX}
-            - ${GIT_SEARCH_PATH_PREFIX}/all-service
-            - ${GIT_SEARCH_PATH_PREFIX}/authentication-service
-            - ${GIT_SEARCH_PATH_PREFIX}/config-service
-            - ${GIT_SEARCH_PATH_PREFIX}/emailing-service
-            - ${GIT_SEARCH_PATH_PREFIX}/gateway-service
-            - ${GIT_SEARCH_PATH_PREFIX}/internship-service
-            - ${GIT_SEARCH_PATH_PREFIX}/user-service
+            - all-service
+            - authentication-service
+            - config-service
+            - emailing-service
+            - gateway-service
+            - internship-service
+            - user-service
         bootstrap: true
       allow-override: true
       override-none: false
