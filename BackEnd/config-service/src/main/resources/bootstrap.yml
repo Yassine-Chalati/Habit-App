@@ -26,3 +26,7 @@ spring:
         bootstrap: true
       allow-override: true
       override-none: false
+
+credential:
+  username: nxdHfbsEZNvTHBcQRtHWejQkxTdJuedQhPhJKUozMoEFoNjzcLnvnQcDaXoxosrZQdkyxDxXkTdwMPukAtUvQfrTykEPVQdKptFG_id-habit-app-service-config
+  password: wdxAB$sBerYeJYWeWajmmGgI5yElkdWe3y#LMNf$UEX6#67Jq7h!8#ZLhspn7dbkG5D!MqLZqUrkluqmdzaKPt46Ld2$Zk6gqMndALmn8DKlepSs!a3B3A+hbnBdG$lIcUduQ9zX66IT#WUwZD+bk+YW2lcyLkHeGkIHckYd7bPzETaSfMx3Zk7mLKxplKeb
