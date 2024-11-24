@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: ${PROFILES}
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${GIT_URI}
+          timeout: 60
+          username: ${USERNAME_GIT}
+          password: ${PASSWORD_GIT}
+          force-pull: true
+          try-master-branch: ${TRY_MASTER_BRANCH}
+          clone-on-start: true
+          search-paths:
+            - ${GIT_SEARCH_PATH_PREFIX}
+            - ${GIT_SEARCH_PATH_PREFIX}/all-service
+            - ${GIT_SEARCH_PATH_PREFIX}/authentication-service
+            - ${GIT_SEARCH_PATH_PREFIX}/config-service
+            - ${GIT_SEARCH_PATH_PREFIX}/emailing-service
+            - ${GIT_SEARCH_PATH_PREFIX}/gateway-service
+            - ${GIT_SEARCH_PATH_PREFIX}/internship-service
+            - ${GIT_SEARCH_PATH_PREFIX}/user-service
+        bootstrap: true
+      allow-override: true
+      override-none: false

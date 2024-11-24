@@ -1,0 +1,211 @@
+server:
+  port: 8000
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/menara-authentication-service
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  mvc:
+    format:
+      date: dd/MM/yyyy
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 777test7test777@gmail.com
+    password: jhplosiytiywoyis
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 433548990101-t8veli84smeq7485e2p03m3f6nf6mvda.apps.googleusercontent.com
+            client-secret: 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
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+# this private RSA key used for encode the jwt
+
+delegate:
+  service: 
+    url: http://localhost:${server.port}
+
+duration:
+  generated: # time that token tok to be expired
+    token:
+      accountActivationToken: 12 # in hours
+      passwordResetToken: 1 # in hours
+  resend: # time to resend an url
+    activationUrl: 12 # duration here is in hours
+    resetPasswordUrl: 0 # duration here is in hours
+
+jwt:
+  claim:
+    issuer: http://localhost:${server.port}/
+    accessTokenExpirationTime: 12
+    refreshTokenExpirationTime: 48
+    idTokenExpirationTime: 1
+    audience: http://localhost:/7000/
+    clientId: react-app
+  access:
+    token:
+      rsa:
+        rsaPrivateKey: |
+          -----BEGIN PRIVATE KEY-----
+          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
+          QsqZ2dH0MWybf32fUqNiLIPz
+          -----END PRIVATE KEY-----
+  refresh:
+    token:
+      rsa:
+        rsaPublicKey: |
+          -----BEGIN PUBLIC KEY-----
+          MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAtAiJYUiGE1kVgAhZtLhd
+          MVI38AI+lIaoZM6r9es1Y5ujH1AUqsmDd2N7Jqhu2WT/mtAbmzPZ1nz0VbNcPb2T
+          5aa096bKYP9UtPJOGmNM9VdGo9QN82d2+xhdXrqcLVx+CYGRzxhE7jq792hhlaJ+
+          0aPmUzfZFoP3bN9SmacKzrq6V92/HvJkIpd8JiT0IIWWl37hhJGAAaWG8ARnqVmm
+          sCLgQ6xeAtmc8rEbnRw4rNwgkWtHoJpIlENHPrXWZT3hFv4WLSRaj+xh0eGpvPny
+          +m/uuzHsAGCShWQNIv6dbBVOkazCw8MawdYp+uvWVG6P2ViQoFxngxgW3LLFebfB
+          j8pEdpzbWzGYWsDIOaxVM5p4LIWVKQUvHV3TF16kAGu3EROZLvqFO5vCGzF6CfMU
+          IZ8W088l8gfA13lcaIL60y0S93I6DmuJKBHlq9Z7t9BzOVY1iGsn7OctipcQOmdK
+          /haV0TkhCGRd/EAMXRFdhPzJbTrrzuSHWo7ENJJ6X1EQ9xQizRxsJw6ybPJghW7N
+          dSfdAFv3KCO73b6rkzVBYfzudy8qObTIAd8kNGxe3AL4Uc4BNgIzPa6kr3uLUBsf
+          zAV2ikdmpawEJ4mWNaFCUwD9/XbgJF/4C2epPpWj4pzYyajPCX8ZGH+EOWfLZ972
+          5Nu/n/NFMz+MXJDAwKDDIVcCAwEAAQ==
+          -----END PUBLIC KEY-----
+        rsaPrivateKey: |
+          -----BEGIN PRIVATE KEY-----
+          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
+          nj6YBNGOZYc33qHLBfqUB8t0RJDMLQ==
+          -----END PRIVATE KEY-----
+
+cookies:
+  secure: "" #Secure
+  prefixSecure: "" #__Secure-
+  prefixHost: "" #__Host-
+  path: "Path" #Path
+  pathValue: "/" #/
+
+# for handle response time attack in nanoseconds
+http:
+  responseTimeWithoutDispatching: 300000000
+  responseTimeWithDispatching: 5000000000
+
+# super admin account 
+credential:
+  account:
+    admin:
+      super:
+        username: superAdmin # the username that you need to authenticate
+        password: superAdmin # the password that you need to perform the authentication
+
+# configuration for scheduler tasks in spring
+scheduler:
+  jwt:
+    delete:
+      duration: 10800 # the value is in second

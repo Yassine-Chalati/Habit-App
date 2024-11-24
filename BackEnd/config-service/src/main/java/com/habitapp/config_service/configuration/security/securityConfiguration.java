@@ -1,7 +1,5 @@
-package com.internship_hiring_menara.config_service.configuration.security;
+package com.habitapp.config_service.configuration.security;
 
-import com.internship_hiring_menara.config_service.configuration.record.Credential;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,6 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.habitapp.config_service.configuration.record.Credential;
+
+import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity

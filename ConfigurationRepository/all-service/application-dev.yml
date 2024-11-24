@@ -1,0 +1,33 @@
+
+security:
+  access:
+    badge:
+      name: access-badge
+      value: 5c0cdeb6087a6b860a203ae56b54f93963ba8b748fb5549db181444285153559
+cors:
+  front-end:
+    url: http://localhost:5500
+
+# this public RSA key used for decode the jwt
+jwt:  
+  access:
+    token:
+      rsa:
+        rsaPublicKey: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAs4wJlE7nNLUAT+/KlJQx
+          Y/xt/52RfnM9/G8jVkQ+g/4haaH/NfARsjQCZY9Pe7XugtJXjsaWz5QiZRqYL9QA
+          9zu4yghZWKRXXvsS6ksL3hQSjxJaJEcaI8xjQnmRBVezKHFjQCsVvp0fR2ZCt58O
+          fDKRaraNBxTdSKmU0ENoQA6G2d3IVK8df5QmTOrwYkS2cYNeyOL3/0pTaITegFHS
+          vKnVvppbJlgapLZr/WOIhv22AbIRPyn7URD57VyauwQmqGQhnTTq6p2Pfc3NmVXR
+          tz7blpDKbfzWz4O+3MR2qU3hGGcimAOeFv7xOFGeR/BvdaI2qE3zqD+o6JJPiJgE
+          i1Lw0HwgaItKUlsXmw1Ys2e/Gx78zt0+ynb0UgX0O+Qh+X5DnKz4aPNvGnONf8nW
+          RdSerqj8BzZ/luGhOtogbJByx5Ce9bylQqiz+Ma0aWvJbIl6ZjtMNpRRjeVWZxv4
+          Nl50+QDh/u7lvkNSRy8Zn+MPxcu7mJyk+oqRUxYGwiZ/AgMBAAE=
+          -----END PUBLIC KEY-----
+          
+service:
+  emailing:
+    credential:
+      username: email
+      password: email

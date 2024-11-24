@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.config_service.configuration.record;
+package com.habitapp.config_service.configuration.record;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
