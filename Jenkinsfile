@@ -74,6 +74,8 @@ cd BackEnd/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
 
+cd ..
+
 cd config-service/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
@@ -81,7 +83,6 @@ source environment-variable.sh
 cd ..
 cd ..
 
-cd ..
 mvn failsafe:integration-test failsafe:verify
 '''
       }
@@ -96,11 +97,12 @@ cd BackEnd/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
 
+cd ..
+
 cd config-service/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
 
-cd ..
 cd ..
 
 cd ..
@@ -118,11 +120,12 @@ cd BackEnd/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
 
+cd ..
+
 cd config-service/scripts
 chmod +x environment-variable.sh
 source environment-variable.sh
 
-cd ..
 cd ..
 
 cd ..
