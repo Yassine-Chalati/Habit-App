@@ -11,7 +11,7 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import com.habitapp.gateway_service.configuration.record.AccessBadge;
 
 @SpringBootTest
-public class ConfigurationRouteLocatorIT {
+class ConfigurationRouteLocatorIT {
     @Autowired
     private RouteLocatorBuilder routeLocatorBuilder;
 
