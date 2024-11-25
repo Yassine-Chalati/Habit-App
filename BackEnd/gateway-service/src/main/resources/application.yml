@@ -1,0 +1,53 @@
+#spring:
+#  main:
+#    web-application-type: reactive
+
+
+
+
+
+
+
+
+#server:
+#  port: 7000
+#
+#spring:
+#  application:
+#    name: gateway-client
+#  filter:
+#    user:
+#      name: ya
+#      password: ya
+#  cloud:
+#    gateway:
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowedOrigins: "http://127.0.0.1:5500"
+#            allowedMethods:
+#              - GET
+#      routes:
+#        - id: authentication-client
+#          uri: lb://authentication-client
+#          predicates:
+#            - Path=/**
+#          metadata:
+#            cors:
+#              allowedOrigins: 'http://127.0.0.1:5500'
+#              allowedMethods:
+#                - GET
+#                - POST
+#              allowedHeaders: '*'
+#              maxAge: 30
+#          filters:
+#            - AddRequestHeader=al-khawarizmi-access-badge, 5c0cdeb6087a6b860a203ae56b54f93963ba8b748fb5549db181444285153559
+#            - AddRequestParameter=al-khawarizmi-access-badge, 5c0cdeb6087a6b860a203ae56b54f93963ba8b748fb5549db181444285153559
+#      routes:
+#            - id: authentication-client
+#              uri: lb://authentication-client
+#              predicates:
+#                - Path=/**
+#              filters:
+#                -
+# add filter in authentication-client to check the authorization-token and remove token after "response"
