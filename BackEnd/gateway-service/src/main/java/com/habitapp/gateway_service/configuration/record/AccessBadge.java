@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.gateway_service.configuration.record;
+package com.habitapp.gateway_service.configuration.record;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

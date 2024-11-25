@@ -15,13 +15,13 @@ spring:
           try-master-branch: ${TRY_MASTER_BRANCH}
           clone-on-start: true
           search-paths:
-            - all-service
-            - authentication-service
-            - config-service
-            - emailing-service
-            - gateway-service
-            - internship-service
-            - user-service
+            - all-service/
+            - authentication-service/
+            - config-service/
+            - emailing-service/
+            - gateway-service/
+            - internship-service/
+            - user-service/
         bootstrap: true
       allow-override: true
       override-none: false

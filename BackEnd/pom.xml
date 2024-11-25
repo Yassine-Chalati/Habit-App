@@ -27,6 +27,7 @@
 	<modules>
 		<module>registry-service</module>
 		<module>config-service</module>
+		<module>gateway-service</module>
 	</modules>
 
 	<dependencies>
