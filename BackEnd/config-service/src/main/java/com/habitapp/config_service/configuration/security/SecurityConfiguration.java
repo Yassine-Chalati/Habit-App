@@ -32,7 +32,7 @@ public class SecurityConfiguration {
     }
 
     /**
-     * @param passwordEncoder is for hashing password using BCrypt
+     * @param passwordEncoder is for hashing password using BCrypt 
      * @return {@return } it contains the User information used for authenticate to config client
      */
     @Bean
