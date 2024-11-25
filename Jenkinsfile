@@ -53,6 +53,14 @@ chmod +x environment-variable.sh
 source environment-variable.sh
 
 cd ..
+
+cd config-service/scripts
+chmod +x environment-variable.sh
+source environment-variable.sh
+
+cd ..
+cd ..
+
 mvn surefire:test'''
       }
     }
