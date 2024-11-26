@@ -18,6 +18,6 @@ eureka:
     lease-renewal-interval-in-seconds: 7
   client:
     refresh:
-      enable: false
+      enable: true
     service-url:
       defaultZone: ${HTTP}://${BASIC_AUTH_EUREKA}${DNS}/eureka/
