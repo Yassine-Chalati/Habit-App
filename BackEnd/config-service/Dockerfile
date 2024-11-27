@@ -1,17 +1,17 @@
-FROM openjdk:21
+FROM ubuntu
+
+RUN apt update
+
+RUN apt install curl -y
+
+RUN cd /opt &&  /bin/curl -L -O https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz && tar -xvzf jdk-21_linux-x64_bin.tar.gz
+
+ENV PATH="$PATH:/opt/jdk-21.0.5/bin"
 
 ARG JAR_FILE
 
+VOLUME /tmp
+
 COPY target/${JAR_FILE} config-service.jar
 
-# RUN export PORT_EUREKA=${PORT_EUREKA} && \
-#     export PROFILES=${PROFILES} && \
-#     export HOSTNAME_EUREKA=${HOSTNAME_EUREKA} && \
-#     export USERNAME_EUREKA=${USERNAME_EUREKA} && \
-#     export PASSWORD_EUREKA=${PASSWORD_EUREKA} && \
-#     export GIT_BRANCH=${GIT_BRANCH} && \
-#     export DNS=${HOSTNAME_EUREKA}:${PORT_EUREKA} && \
-#     export HTTP=${HTTP} && \
-#     export BASIC_AUTH_EUREKA=${USERNAME_EUREKA}:${PASSWORD_EUREKA}@
-
-ENTRYPOINT ["java", "-jar", "/config-service.jar" ]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/config-service.jar" ]
