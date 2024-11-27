@@ -39,13 +39,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234  # Set root password
     ports:
-      - "3307:3307"  # Expose MySQL on port 3306
+      - "3307:3307"  # Expose MySQL on port 3307
     volumes:
       - mysql-data:/var/lib/mysql  # Persist MySQL data
     networks:
       - habit-app
   
   registry-service:
+    hostname: localhost
     build:
       context: ./registry-service
       dockerfile: Dockerfile
@@ -61,6 +62,7 @@ services:
       - habit-app
 
   config-service:
+    hostname: config-service
     build:
       context: ./config-service
       dockerfile: Dockerfile
@@ -79,6 +81,7 @@ services:
       - habit-app
 
   gateway-service:
+    hostname: gateway-service
     build:
       context: ./gateway-service
       dockerfile: Dockerfile
