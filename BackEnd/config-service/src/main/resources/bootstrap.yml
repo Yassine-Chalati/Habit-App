@@ -20,8 +20,7 @@ spring:
             - config-service/
             - emailing-service/
             - gateway-service/
-            - internship-service/
-            - user-service/
+            - habit-service/
         bootstrap: true
       allow-override: true
       override-none: false
