@@ -2,7 +2,7 @@ spring:
   application:
     name: habit-service
   profiles:
-    active: ${PROFILES}, test
+    active: ${PROFILES}
   cloud:
     config:
       discovery:
