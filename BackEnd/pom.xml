@@ -28,6 +28,7 @@
 		<module>registry-service</module>
 		<module>config-service</module>
 		<module>gateway-service</module>
+		<module>habit-service</module>
 	</modules>
 
 	<dependencies>
