@@ -1,10 +1,10 @@
-package com.habitapp.notification_service.scheduler;
+package com.habitapp.habit_service.scheduler;
 
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.habitapp.notification_service.annotation.Scheduler;
+import com.habitapp.habit_service.annotation.Scheduler;
 
 import lombok.AllArgsConstructor;
 
