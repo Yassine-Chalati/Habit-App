@@ -2,6 +2,7 @@ package com.habitapp.habit_service.domain.entity;
 
 import com.habitapp.habit_service.domain.base.BaseClassName;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-// @Entity
+@Entity
 public class EntityClassName extends BaseClassName {
     @Id
     private long idAccount;

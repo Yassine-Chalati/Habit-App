@@ -39,7 +39,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234  # Set root password
     ports:
-      - "3307:3307"  # Expose MySQL on port 3307
+      - "3306:3306"  # Expose MySQL on port 3307
     volumes:
       - mysql-data:/var/lib/mysql  # Persist MySQL data
     networks:
