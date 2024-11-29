@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.AllArgsConstructor;
@@ -31,13 +30,13 @@ public class SecurityConfiguration {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest()
-                        .authenticated()
+                        .permitAll()
                 )
-                .sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults()))
+                // .sessionManagement(sess -> sess
+                //         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // )
+                // .oauth2ResourceServer(oauth2 -> oauth2
+                //         .jwt(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 // .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class)
