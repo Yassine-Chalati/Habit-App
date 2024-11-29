@@ -21,6 +21,7 @@ spring:
             - emailing-service/
             - gateway-service/
             - habit-service/
+            - notification-service/
         bootstrap: true
       allow-override: true
       override-none: false

@@ -4,11 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.habitapp.notification_service.annotation.Scheduler;
-
 import lombok.AllArgsConstructor;
 
-@Scheduler
+// @Scheduler
 @AllArgsConstructor
 public class SchedulerNameScheduler {
 

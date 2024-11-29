@@ -1,4 +1,4 @@
-package com.habitapp.habit_service.configuration.client;
+package com.habitapp.notification_service.configuration.client;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;

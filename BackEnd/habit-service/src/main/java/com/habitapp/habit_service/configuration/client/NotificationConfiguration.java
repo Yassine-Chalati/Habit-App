@@ -8,7 +8,7 @@ import feign.RequestInterceptor;
 @Configuration
 @Order(4)
 // @AllArgsConstructor
-public class ProfileConfiguration {
+public class NotificationConfiguration {
     // @Bean
     public RequestInterceptor requestInterceptorUser(){
         return template -> template

@@ -1,4 +1,4 @@
-package com.habitapp.habit_service.configuration.client;
+package com.habitapp.notification_service.configuration.client;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -8,7 +8,7 @@ import feign.RequestInterceptor;
 @Configuration
 @Order(4)
 // @AllArgsConstructor
-public class ProfileConfiguration {
+public class MotivationConfiguration {
     // @Bean
     public RequestInterceptor requestInterceptorUser(){
         return template -> template
