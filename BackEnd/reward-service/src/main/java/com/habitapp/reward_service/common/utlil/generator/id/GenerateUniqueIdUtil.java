@@ -1,9 +1,9 @@
-package com.habitapp.notification_service.common.utlil.generator.id;
+package com.habitapp.reward_service.common.utlil.generator.id;
 
 import java.util.UUID;
 
-import com.habitapp.notification_service.annotation.Util;
-import com.habitapp.notification_service.common.utlil.converter.ConverterUtil;
+import com.habitapp.reward_service.annotation.Util;
+import com.habitapp.reward_service.common.utlil.converter.ConverterUtil;
 
 import lombok.AllArgsConstructor;
 

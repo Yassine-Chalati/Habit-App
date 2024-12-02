@@ -1,13 +1,13 @@
-package com.habitapp.notification_service.common.utlil.cryptography.hash;
+package com.habitapp.reward_service.common.utlil.cryptography.hash;
 
-
-import lombok.AllArgsConstructor;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.habitapp.notification_service.annotation.Util;
-import com.habitapp.notification_service.common.utlil.converter.ConverterUtil;
+import com.habitapp.reward_service.annotation.Util;
+import com.habitapp.reward_service.common.utlil.converter.ConverterUtil;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Util

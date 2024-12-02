@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.proxy.exception.common;
+package com.habitapp.reward_service.proxy.exception.common;
 
 public class UnexpectedException extends Exception{
     public UnexpectedException(String message){

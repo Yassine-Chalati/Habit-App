@@ -1,9 +1,9 @@
-package com.habitapp.notification_service.common.utlil.regex;
+package com.habitapp.reward_service.common.utlil.regex;
 
 
 import java.util.regex.Pattern;
 
-import com.habitapp.notification_service.annotation.Util;
+import com.habitapp.reward_service.annotation.Util;
 
 @Util
 public class RegexPatternValidatorUtil {

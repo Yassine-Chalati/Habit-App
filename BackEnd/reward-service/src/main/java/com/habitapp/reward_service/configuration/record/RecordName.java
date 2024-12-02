@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.configuration.record;
+package com.habitapp.reward_service.configuration.record;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

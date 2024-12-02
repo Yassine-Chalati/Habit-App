@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.proxy.exception.package_exception_name;
+package com.habitapp.reward_service.proxy.exception.package_exception_name;
 
 public class ExceptionNameException extends Exception {
 

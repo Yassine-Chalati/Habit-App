@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.annotation;
+package com.habitapp.reward_service.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

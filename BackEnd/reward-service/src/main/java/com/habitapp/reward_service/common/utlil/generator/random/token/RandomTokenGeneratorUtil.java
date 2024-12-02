@@ -1,9 +1,9 @@
-package com.habitapp.notification_service.common.utlil.generator.random.token;
+package com.habitapp.reward_service.common.utlil.generator.random.token;
 
 import java.security.SecureRandom;
 
-import com.habitapp.notification_service.annotation.Util;
-import com.habitapp.notification_service.common.utlil.cryptography.hash.HashUtil;
+import com.habitapp.reward_service.annotation.Util;
+import com.habitapp.reward_service.common.utlil.cryptography.hash.HashUtil;
 
 import lombok.AllArgsConstructor;
 

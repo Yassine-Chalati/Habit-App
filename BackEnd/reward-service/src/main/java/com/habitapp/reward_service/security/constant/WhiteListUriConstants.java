@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.security.constant;
+package com.habitapp.reward_service.security.constant;
 
 import java.util.ArrayList;
 import java.util.List;

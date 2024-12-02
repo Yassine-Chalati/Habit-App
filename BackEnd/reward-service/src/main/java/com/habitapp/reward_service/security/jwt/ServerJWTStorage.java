@@ -1,6 +1,6 @@
-package com.habitapp.notification_service.security.jwt;
+package com.habitapp.reward_service.security.jwt;
 
-import com.habitapp.notification_service.annotation.Storage;
+import com.habitapp.reward_service.annotation.Storage;
 
 import lombok.Getter;
 import lombok.Setter;
