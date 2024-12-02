@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.domain.facade;
+package com.habitapp.progress_service.domain.facade;
 
 public interface FacadeNameFacade {
 

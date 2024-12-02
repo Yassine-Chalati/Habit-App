@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.authentication;
+package com.habitapp.progress_service.dto.authentication;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AuthenticationInformationDTO {
+
     private long idAccount;
     private String lastIpConnection;
     private LocalDateTime lastConnection;

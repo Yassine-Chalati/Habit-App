@@ -1,7 +1,8 @@
-package com.habitapp.notification_service.proxy.exception.common;
+package com.habitapp.progress_service.proxy.exception.common;
 
-public class ForbiddenException extends Exception{
-    public ForbiddenException(String message){
+public class ForbiddenException extends Exception {
+
+    public ForbiddenException(String message) {
         super(message);
     }
 }

@@ -30,6 +30,7 @@
 		<module>gateway-service</module>
 		<module>habit-service</module>
 		<module>notification-service</module>
+		<module>progress-service</module>
 	</modules>
 
 	<dependencies>

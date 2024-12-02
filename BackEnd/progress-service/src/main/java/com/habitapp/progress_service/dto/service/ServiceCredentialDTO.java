@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.service;
+package com.habitapp.progress_service.dto.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ServiceCredentialDTO {
+
     private String username;
     private String password;
 }

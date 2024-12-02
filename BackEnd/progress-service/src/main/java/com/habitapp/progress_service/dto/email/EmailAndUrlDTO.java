@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.email;
+package com.habitapp.progress_service.dto.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class EmailAndUrlDTO {
+
     private String email;
     private String url;
 }

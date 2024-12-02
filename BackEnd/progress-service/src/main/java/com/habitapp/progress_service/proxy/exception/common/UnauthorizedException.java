@@ -1,7 +1,8 @@
-package com.habitapp.notification_service.proxy.exception.common;
+package com.habitapp.progress_service.proxy.exception.common;
 
-public class UnauthorizedException extends Exception{
-    public UnauthorizedException(String message){
+public class UnauthorizedException extends Exception {
+
+    public UnauthorizedException(String message) {
         super(message);
     }
 }

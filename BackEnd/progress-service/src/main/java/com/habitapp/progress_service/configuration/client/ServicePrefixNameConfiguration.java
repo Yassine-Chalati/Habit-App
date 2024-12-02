@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.configuration.client;
+package com.habitapp.progress_service.configuration.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +11,9 @@ import lombok.AllArgsConstructor;
 @Order(4)
 @AllArgsConstructor
 public class ServicePrefixNameConfiguration {
+
     @Bean
-    public RequestInterceptor requestInterceptorUser(){
+    public RequestInterceptor requestInterceptorUser() {
         return template -> template
                 .header("header name and its value");
     }

@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.account;
+package com.habitapp.progress_service.dto.account;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +15,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AdminAccountInformationDTO {
+
     private long idAccount;
     private LocalDateTime creationDate;
     private String email;
