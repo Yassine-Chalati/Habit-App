@@ -1,11 +1,9 @@
-package com.habitapp.notification_service.security.filter;
+package com.habitapp.reward_service.security.filter;
 
 import java.io.IOException;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.habitapp.notification_service.annotation.Filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +17,7 @@ import lombok.AllArgsConstructor;
 
 @Order(1)
 @AllArgsConstructor
-@Filter
+// @Filter
 public class FilterNameFilter extends OncePerRequestFilter {@Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {

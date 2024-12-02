@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.domain.base;
+package com.habitapp.reward_service.domain.base;
 
 import java.time.LocalDateTime;
 

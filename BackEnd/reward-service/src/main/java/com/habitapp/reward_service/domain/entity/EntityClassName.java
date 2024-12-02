@@ -1,6 +1,6 @@
-package com.habitapp.notification_service.domain.entity;
+package com.habitapp.reward_service.domain.entity;
 
-import com.habitapp.notification_service.domain.base.BaseClassName;
+import com.habitapp.reward_service.domain.base.BaseClassName;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

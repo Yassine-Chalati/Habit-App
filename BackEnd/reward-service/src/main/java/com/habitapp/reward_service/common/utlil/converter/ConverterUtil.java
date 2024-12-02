@@ -1,6 +1,6 @@
-package com.habitapp.notification_service.common.utlil.converter;
+package com.habitapp.reward_service.common.utlil.converter;
 
-import com.habitapp.notification_service.annotation.Util;
+import com.habitapp.reward_service.annotation.Util;
 
 @Util
 public class ConverterUtil {

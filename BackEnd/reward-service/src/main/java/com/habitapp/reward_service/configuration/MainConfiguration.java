@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.configuration;
+package com.habitapp.reward_service.configuration;
 
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.habitapp.notification_service.configuration.record.RecordName;
+import com.habitapp.reward_service.configuration.record.RecordName;
 
 
 @Configuration

@@ -31,6 +31,8 @@
 		<module>habit-service</module>
 		<module>notification-service</module>
 		<module>progress-service</module>
+		<module>motivation-service</module>
+		<module>reward-service</module>
 	</modules>
 
 	<dependencies>
