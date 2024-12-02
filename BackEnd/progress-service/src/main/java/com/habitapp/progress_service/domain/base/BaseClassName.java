@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.domain.base;
+package com.habitapp.progress_service.domain.base;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +20,7 @@ import lombok.ToString;
 @ToString
 @MappedSuperclass
 public abstract class BaseClassName {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountSeq")
     @SequenceGenerator(name = "accountSeq", initialValue = 1)
@@ -45,7 +46,6 @@ public abstract class BaseClassName {
     //     this.roles = roles;
     //     this.permissions = permissions;
     // }
-
     // public Account(long id, String email, LocalDateTime creationDate){
     //     this.email = email;
     //     this.creationDate = creationDate;

@@ -1,6 +1,5 @@
 package com.habitapp.notification_service.configuration.security;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -9,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.AllArgsConstructor;
@@ -29,9 +29,12 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest()
-                        .permitAll()
+                .anyRequest()
+                .permitAll()
                 )
+                .headers((httpSecurityHeadersConfigurer -> {
+                    httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
+                }))
                 // .sessionManagement(sess -> sess
                 //         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 // )
@@ -44,32 +47,26 @@ public class SecurityConfiguration {
                 // .addFilterAfter(verifyRevokedJwtFilter, VerifyTokenFingerprintFilter.class)
                 .build();
     }
-
     // @Bean
     // CorsConfigurationSource corsConfigurationSource() {
     //     CorsConfiguration configuration = new CorsConfiguration();
     //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
     //     configuration.setAllowedOrigins(Collections.singletonList(this.frontEndURL.url()));
     //     configuration.setAllowedMethods(Arrays.asList("GET","POST"));
     //     source.registerCorsConfiguration("/**", configuration);
     //     return source;
     // }
-
     // @Bean
     // JwtDecoder jwtDecoder(){
     //     return NimbusJwtDecoder.withPublicKey(accessTokenRsaPubKeyConfig.rsaPublicKey())
     //             .build();
     // }
-
     // @Bean
     // public JwtAuthenticationConverter jwtAuthenticationConverter(){
     //     JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
     //     grantedAuthoritiesConverter.setAuthorityPrefix("");
-
     //     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
     //     jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
     //     return jwtAuthenticationConverter;
     // }
-
 }

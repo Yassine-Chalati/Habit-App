@@ -22,6 +22,7 @@ spring:
             - gateway-service/
             - habit-service/
             - notification-service/
+            - progress-service/
         bootstrap: true
       allow-override: true
       override-none: false

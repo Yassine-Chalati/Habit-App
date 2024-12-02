@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.annotation;
+package com.habitapp.progress_service.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Documented
 @Component
 public @interface Util {
+
     @AliasFor(
             annotation = Component.class
     )

@@ -1,27 +1,25 @@
-package com.habitapp.notification_service.common.utlil.cryptography.hash;
-
+package com.habitapp.progress_service.common.utlil.cryptography.hash;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.habitapp.notification_service.annotation.Util;
-import com.habitapp.notification_service.common.utlil.converter.ConverterUtil;
+import com.habitapp.progress_service.annotation.Util;
+import com.habitapp.progress_service.common.utlil.converter.ConverterUtil;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Util
 public class HashUtil {
+
     private final ConverterUtil converterUtil;
-
-
 
     /**
      *
      * @param bytes {@summary take bytes in parameter}
      * @return {@return HashUtil code converted to String Hexadecimal}
      */
-    public String hashWithSHA256AndReturnHexadecimalString(byte[] bytes){
+    public String hashWithSHA256AndReturnHexadecimalString(byte[] bytes) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = digest.digest(bytes);
@@ -37,7 +35,7 @@ public class HashUtil {
      * @param bytes {@summary take bytes in parameter}
      * @return {@return HashUtil code converted to String Hexadecimal}
      */
-    public String hashWithMD5AndReturnHexadecimalString(byte[] bytes){
+    public String hashWithMD5AndReturnHexadecimalString(byte[] bytes) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
             byte[] encodedHash = digest.digest(bytes);

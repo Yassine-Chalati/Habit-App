@@ -1,5 +1,4 @@
-package com.habitapp.notification_service.configuration.security;
-
+package com.habitapp.progress_service.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -30,14 +30,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest()
-                        .authenticated()
+                .anyRequest()
+                .permitAll()
                 )
+                .headers((httpSecurityHeadersConfigurer -> {
+                    httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
+                }))
                 .sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults()))
+                // .oauth2ResourceServer(oauth2 -> oauth2
+                // .jwt(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 // .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class)
@@ -50,27 +53,22 @@ public class SecurityConfiguration {
     // CorsConfigurationSource corsConfigurationSource() {
     //     CorsConfiguration configuration = new CorsConfiguration();
     //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
     //     configuration.setAllowedOrigins(Collections.singletonList(this.frontEndURL.url()));
     //     configuration.setAllowedMethods(Arrays.asList("GET","POST"));
     //     source.registerCorsConfiguration("/**", configuration);
     //     return source;
     // }
-
     // @Bean
     // JwtDecoder jwtDecoder(){
     //     return NimbusJwtDecoder.withPublicKey(accessTokenRsaPubKeyConfig.rsaPublicKey())
     //             .build();
     // }
-
     // @Bean
     // public JwtAuthenticationConverter jwtAuthenticationConverter(){
     //     JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
     //     grantedAuthoritiesConverter.setAuthorityPrefix("");
-
     //     JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
     //     jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
     //     return jwtAuthenticationConverter;
     // }
-
 }

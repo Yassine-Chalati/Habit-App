@@ -5,7 +5,9 @@ import com.habitapp.profile_service.configuration.record.AccessTokenRsaPubKeyCon
 import com.habitapp.profile_service.security.filter.VerifyAccessBadgeFilter;
 import com.habitapp.profile_service.security.filter.VerifyRevokedJwtFilter;
 import com.habitapp.profile_service.security.filter.VerifyTokenFingerprintFilter;
+
 import lombok.AllArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -29,12 +31,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @AllArgsConstructor
 @Order(2)
 public class SecurityConfiguration {
+
     private FrontEndURL frontEndURL;
     private AccessTokenRsaPubKeyConfig accessTokenRsaPubKeyConfig;
     private VerifyAccessBadgeFilter verifyAccessBadgeFilter;
@@ -45,14 +50,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest()
-                        .authenticated()
+                .anyRequest()
+                .authenticated()
                 )
                 .sessionManagement(sess -> sess
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
+                .headers((httpSecurityHeadersConfigurer -> {
+                    httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
+                }))
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults()))
+                .jwt(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class)
@@ -67,19 +75,19 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         configuration.setAllowedOrigins(Collections.singletonList(this.frontEndURL.url()));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
     @Bean
-    JwtDecoder jwtDecoder(){
+    JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(accessTokenRsaPubKeyConfig.rsaPublicKey())
                 .build();
     }
 
     @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter(){
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         grantedAuthoritiesConverter.setAuthorityPrefix("");
 

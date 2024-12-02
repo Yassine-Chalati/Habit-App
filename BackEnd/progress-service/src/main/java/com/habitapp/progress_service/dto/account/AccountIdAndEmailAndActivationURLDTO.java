@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.account;
+package com.habitapp.progress_service.dto.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AccountIdAndEmailAndActivationURLDTO {
+
     private long idAccount;
     private String email;
     private String activationURL;

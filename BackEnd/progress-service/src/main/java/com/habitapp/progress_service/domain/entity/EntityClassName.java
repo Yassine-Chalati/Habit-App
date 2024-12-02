@@ -1,9 +1,8 @@
-package com.habitapp.notification_service.domain.entity;
+package com.habitapp.progress_service.domain.entity;
 
-import com.habitapp.notification_service.domain.base.BaseClassName;
+import com.habitapp.progress_service.domain.base.BaseClassName;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +14,9 @@ import lombok.ToString;
 @ToString
 @Entity
 public class EntityClassName extends BaseClassName {
-    @Id
-    private long idAccount;
+
+    // @Id
+    // private long idAccount;
     private String userType;
 
     // public AccountAuthentication(long idAccount,

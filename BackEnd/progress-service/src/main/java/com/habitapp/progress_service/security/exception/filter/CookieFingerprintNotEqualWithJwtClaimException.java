@@ -1,7 +1,8 @@
-package com.habitapp.notification_service.security.exception.filter;
+package com.habitapp.progress_service.security.exception.filter;
 
-public class CookieFingerprintNotEqualWithJwtClaimException extends RuntimeException{
-    public CookieFingerprintNotEqualWithJwtClaimException(String meassage){
+public class CookieFingerprintNotEqualWithJwtClaimException extends RuntimeException {
+
+    public CookieFingerprintNotEqualWithJwtClaimException(String meassage) {
         super(meassage);
     }
 }

@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.account;
+package com.habitapp.progress_service.dto.account;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AccountAndRolesAndPermissionsDTO {
+
     private String email;
     private String password;
     private List<String> roles;

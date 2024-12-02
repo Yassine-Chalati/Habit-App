@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.dto.authentication;
+package com.habitapp.progress_service.dto.authentication;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class AuthenticationAccountDTO {
+
     private List<CandidateAuthenticationInformationDTO> candidateAuthenticationInformationList;
     private List<AdminAuthenticationInformationDTO> adminAuthenticationInformationList;
 }

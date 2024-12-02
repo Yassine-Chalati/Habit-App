@@ -1,4 +1,4 @@
-package com.habitapp.notification_service.annotation;
+package com.habitapp.progress_service.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,5 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 @Qualifier
 @Documented
 public @interface Instance {
+
     String value() default "";
 }
