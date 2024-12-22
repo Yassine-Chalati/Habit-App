@@ -62,7 +62,7 @@ public class AccountServiceImp implements AccountService {
 
 
     @Override
-    public AccountIdAndEmailAndActivationURLDTO createIndividualAccountWithDefaultMethod(AccountAndRolesAndPermissionsDTO account) throws EmailPatternNotValidException,
+    public AccountIdAndEmailAndActivationURLDTO createIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws EmailPatternNotValidException,
             PasswordPatternNotValidException,
             EmailNotFoundException,
             PasswordNotFoundException,
@@ -159,6 +159,31 @@ public class AccountServiceImp implements AccountService {
         activationURL = urlDelegateService.url() + AuthenticationServiceUrlPathConstants.ACTIVATION_URI_PATH + generatedToken + AuthenticationServiceUrlPathConstants.URI_EMAIL_PARAMETER + defaultAccountIndividual.getEmail();
         return new AccountIdAndEmailAndActivationURLDTO(defaultAccountIndividual.getId(), defaultAccountIndividual.getEmail(), activationURL);
     }
+
+    @Override
+    public void updatePasswordIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws PasswordPatternNotValidException,
+            PasswordNotFoundException,
+            AccountNotFoundException {
+        DefaultAccountIndividual defaultAccountIndividual;
+
+        if((account.getPassword() == null)
+                || account.getPassword().isEmpty()
+                || account.getPassword().isBlank()) {
+            throw new PasswordNotFoundException("the password not found exception");
+        }
+
+        if(this.validatePassword(account.getPassword())){
+            throw new PasswordPatternNotValidException("Password Pattern is not valid");
+        }
+
+
+        defaultAccountIndividual =  defaultAccountIndividualRepository.findById(account.getIdAccount())
+                .orElseThrow(() -> new AccountNotFoundException("Account not found for email: " + account.getIdAccount()));
+        defaultAccountIndividual.setPassword(passwordEncoder.encode(account.getPassword()));
+        defaultAccountIndividualRepository.save(defaultAccountIndividual);
+
+    }
+
 
     @Override
     public AccountIdAndAuthoritiesDTO activateTheIndividualAccountCreatedByDefaultMethod(AccountEmailAndActivationTokenDTO accountEmailAndActivationTokenDTO) throws EmailNotFoundException,

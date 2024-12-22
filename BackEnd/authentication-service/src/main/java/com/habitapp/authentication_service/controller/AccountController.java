@@ -24,11 +24,9 @@ import com.habitapp.authentication_service.domain.exception.authentication.Unkno
 import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.menara.authentication.domain.facade.*;
 import com.menara.authentication.dto.account.*;
-import com.habitapp.authentication_service.dto.jwt.JsonWebTokenConnectionInformationDTO;
 import com.habitapp.authentication_service.dto.user.admin.AdminInformationDTO;
 import com.habitapp.authentication_service.dto.user.individual.CandidateInformationDTO;
 import com.habitapp.authentication_service.dto.email.EmailAndUrlDTO;
-import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenAndFingerPrintDTO;
 import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenDTO;
 import com.menara.authentication.proxy.exception.common.*;
 import com.menara.authentication.proxy.exception.user.*;

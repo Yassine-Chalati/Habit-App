@@ -40,12 +40,8 @@ public class AuthenticationServiceImp implements AuthenticationService {
     private final AuthenticationManager authenticationManagerRefreshToken;
     private final JwtEncoder accessJwtEncoder;
     private final JwtEncoder refreshJwtEncoder;
-    private final JwtDecoder refreshjwtDecoder;
     private final JwtClaim jwtClaim;
-    private final HashUtil hashUtil;
     private final GenerateUniqueIdUtil generateUniqueIdUtil;
-    private final RandomTokenGeneratorUtil randomTokenGeneratorUtil;
-    private final FrontEndURL frontEndURL;
 
     public AuthenticationServiceImp(
                                     @Instance("RefreshTokenDefaultAccountIndividualDetails") UserDetailsService individualDefaultAccountRefreshTokenUserDetailsService,
@@ -65,16 +61,12 @@ public class AuthenticationServiceImp implements AuthenticationService {
         this.authenticationManagerRefreshToken = authenticationManagerRefreshToken;
         this.accessJwtEncoder = accessJwtEncoder;
         this.refreshJwtEncoder = refrshJwtEncoder;
-        this.refreshjwtDecoder = refrshjwtDecoder;
         this.jwtClaim = jwtClaim;
-        this.hashUtil = hashUtil;
         this.generateUniqueIdUtil = generateUniqueIdUtil;
-        this.randomTokenGeneratorUtil = randomTokenGeneratorUtil;
-        this.frontEndURL = frontEndURL;
     }
 
     @Override
-    public AccessTokenAndRefreshTokenAndFingerPrintDTO authenticateIndividualWithDefaultMethod(AccountDTO account) throws InstanceOfException, AccountActivationException, ValueNullException, UnknownAuthenticationTypeException, AuthenticationTypeNullPointerException {
+    public AccessTokenAndRefreshTokenDTO authenticateIndividualWithDefaultMethod(AccountDTO account) throws InstanceOfException, AccountActivationException, ValueNullException, UnknownAuthenticationTypeException, AuthenticationTypeNullPointerException {
         IndividualDefaultMethod individual;
         Object user;
         String authorities;
@@ -103,10 +95,9 @@ public class AuthenticationServiceImp implements AuthenticationService {
     }
 
     @Override
-    public AccessTokenAndRefreshTokenAndFingerPrintDTO authenticateWithRefreshToken(String refreshToken, String fingerprint, JsonWebTokenConnectionInformationDTO jsonWebTokenConnectionInformation) throws ValueNullException, InstanceOfException, UnknownAccountTypeException, AccountActivationException, AuthenticationTypeNullPointerException, UnknownAuthenticationTypeException {
+    public AccessTokenAndRefreshTokenDTO authenticateWithRefreshToken(String refreshToken) throws ValueNullException, InstanceOfException, AccountActivationException {
         Jwt jwt;
         String authorities;
-        String hashedCookieFingerprint;
 
         if (refreshToken == null){
             throw new ValueNullException("refresh token is null");
@@ -144,7 +135,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
 
     @Override
-    public AccessTokenDTO generateAccessToken(JwtScopeAndSubjectAndFingerprintDTO jwtScopeAndSubjectAndFingerprint) {
+    public AccessTokenDTO generateAccessToken(JwtScopeAndSubjectDTO jwtScopeAndSubject) {
 
         String accessToken;
         Instant instant = Instant.now();
@@ -153,10 +144,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .expiresAt(instant.plus(jwtClaim.accessTokenExpirationTime(),ChronoUnit.HOURS))
                 .issuedAt(instant)
                 .audience(List.of(jwtClaim.audience()))
-                .subject(jwtScopeAndSubjectAndFingerprint.getSubject())
+                .subject(jwtScopeAndSubject.getSubject())
                 .id(generateUniqueIdUtil.generateUniqueId())
                 .claim(JwtClaimsConstants.Client_ID, jwtClaim.clientId())
-                .claim(JwtClaimsConstants.SCOPE, jwtScopeAndSubjectAndFingerprint.getScope())
+                .claim(JwtClaimsConstants.SCOPE, jwtScopeAndSubject.getScope())
                 .build();
 
         accessToken = accessJwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
@@ -164,7 +155,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
     }
 
     @Override
-    public RefreshTokenDTO generateRefreshToken(JwtSubjectAndFingerprintDTO jwtSubjectAndFingerprint) {
+    public RefreshTokenDTO generateRefreshToken(JwtSubjectDTO jwtSubjectAndFingerprint) {
         String refreshToken;
         Instant instant = Instant.now();
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
@@ -181,33 +172,23 @@ public class AuthenticationServiceImp implements AuthenticationService {
         return new RefreshTokenDTO(refreshToken);
     }
 
-    @Override
-    public String generateFingerprint(){
-        return randomTokenGeneratorUtil.generateRandomToken32Characters();
-    }
+    private AccessTokenAndRefreshTokenDTO processGenerationToken(String subject, String authorities) {
+        AccessTokenAndRefreshTokenDTO jwtTokens = new AccessTokenAndRefreshTokenDTO(null, null);
+        JwtScopeAndSubjectDTO jwtScopeAndSubject = new JwtScopeAndSubjectDTO();
 
-    private AccessTokenAndRefreshTokenAndFingerPrintDTO processGenerationToken(String subject, String authorities) {
-        AccessTokenAndRefreshTokenAndFingerPrintDTO jwtTokens = new AccessTokenAndRefreshTokenAndFingerPrintDTO(null, null, null);
-        JwtScopeAndSubjectAndFingerprintDTO jwtScopeAndSubjectAndFingerprint = new JwtScopeAndSubjectAndFingerprintDTO();
-        String fingerPrint;
 
-        fingerPrint = this.generateFingerprint();
+        jwtScopeAndSubject.setSubject(subject);
+        jwtScopeAndSubject.setScope(authorities);
 
-        jwtScopeAndSubjectAndFingerprint.setSubject(subject);
-        jwtScopeAndSubjectAndFingerprint.setScope(authorities);
-        jwtScopeAndSubjectAndFingerprint.setFingerprint(fingerPrint);
-
-        JwtSubjectAndFingerprintDTO jwtSubjectAndFingerprint = new JwtSubjectAndFingerprintDTO();
+        JwtSubjectDTO jwtSubjectAndFingerprint = new JwtSubjectDTO();
         jwtSubjectAndFingerprint.setSubject(subject);
-        jwtSubjectAndFingerprint.setFingerprint(fingerPrint);
 
         jwtTokens.setRefreshToken(this.generateRefreshToken(jwtSubjectAndFingerprint)
                 .getRefreshToken());
 
 
-        jwtTokens.setAccessToken(this.generateAccessToken(jwtScopeAndSubjectAndFingerprint)
+        jwtTokens.setAccessToken(this.generateAccessToken(jwtScopeAndSubject)
                 .getAccessToken());
-        jwtTokens.setFingerPrint(fingerPrint);
 
         return jwtTokens;
     }

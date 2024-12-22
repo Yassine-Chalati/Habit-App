@@ -2,6 +2,8 @@ package com.habitapp.authentication_service.dto.user.individual;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -15,6 +17,6 @@ public class IndividualInformationDTO {
     private String lastName;
     @NonNull
     private String email;
-    private String imageUrl;
+    private LocalDate birthDate;
     private String gender;
 }

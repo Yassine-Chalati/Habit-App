@@ -18,7 +18,6 @@ import com.menara.authentication.domain.exception.account.*;
 import com.menara.authentication.domain.exception.authentication.*;
 import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.habitapp.authentication_service.domain.facade.AuthenticationFacade;
-import com.habitapp.authentication_service.dto.account.SuperAdminAccountDTO;
 import com.menara.authentication.dto.authentication.*;
 import com.menara.authentication.dto.jwt.*;
 import com.habitapp.authentication_service.dto.account.AccountDTO;

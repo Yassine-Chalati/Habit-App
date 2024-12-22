@@ -5,15 +5,16 @@ import com.habitapp.authentication_service.annotation.Facade;
 import com.habitapp.authentication_service.proxy.client.profile.IndividualServiceProxy;
 import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
 import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
+import com.habitapp.profile_service.domain.entity.Individual;
 import lombok.AllArgsConstructor;
 
 @Facade
 @AllArgsConstructor
-public class CandidateFacadeImp implements IndividualFacade {
+public class IndividualFacadeImp implements IndividualFacade {
     private IndividualServiceProxy individualServiceProxy;
 
     @Override
-    public void createCandidate(CandidateInformationDTO candidateInformationDTO) throws UnexpectedException, UnauthorizedException {
-        individualServiceProxy.createCandidate(candidateInformationDTO);
+    public Individual readIndividualAccountWithDefaultMethod(long idAccount) throws UnexpectedException, UnauthorizedException {
+        return individualServiceProxy.readOneIndividual(idAccount);
     }
 }

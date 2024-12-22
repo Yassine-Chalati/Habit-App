@@ -7,8 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class JwtScopeAndSubjectAndFingerprintDTO {
+public class JwtScopeAndSubjectDTO {
     private String subject;
     private String scope;
-    private String fingerprint;
 }

@@ -1,156 +1,42 @@
 package com.habitapp.authentication_service.domain.facade.imp;
 
-import com.menara.authentication.domain.exception.account.*;
+import com.habitapp.authentication_service.domain.exception.account.*;
 import com.habitapp.authentication_service.domain.exception.account.RoleNotDefinedException;
 import com.habitapp.authentication_service.domain.exception.account.RoleNotFoundException;
 import com.habitapp.authentication_service.domain.exception.account.RolePrefixException;
-import com.habitapp.authentication_service.domain.exception.authentication.AuthenticationTypeNullPointerException;
-import com.habitapp.authentication_service.domain.exception.authentication.UnknownAuthenticationTypeException;
-import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.habitapp.authentication_service.domain.facade.AccountFacade;
-import com.menara.authentication.annotation.Facade;
-import com.menara.authentication.domain.service.AccountService;
-import com.menara.authentication.domain.service.AuthenticationService;
-import com.menara.authentication.dto.account.*;
-import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenAndFingerPrintDTO;
-import com.habitapp.authentication_service.dto.jwt.JsonWebTokenConnectionInformationDTO;
-import com.habitapp.authentication_service.dto.jwt.JwtScopeAndSubjectAndFingerprintDTO;
-import com.habitapp.authentication_service.dto.jwt.JwtSubjectAndFingerprintDTO;
+import com.habitapp.authentication_service.annotation.Facade;
+import com.habitapp.authentication_service.domain.service.AccountService;
+import com.habitapp.authentication_service.dto.account.*;
+import com.habitapp.authentication_service.dto.email.EmailAndUrlDTO;
+import com.habitapp.authentication_service.proxy.client.emailing.EmailServiceProxy;
+import com.habitapp.authentication_service.proxy.client.profile.IndividualServiceProxy;
+import com.habitapp.authentication_service.proxy.exception.common.*;
+import com.habitapp.profile_service.domain.entity.Individual;
 import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @Facade
 public class AccountFacadeImp implements AccountFacade {
     private AccountService accountService;
-    private AuthenticationService authenticationService;
+    private IndividualServiceProxy individualServiceProxy;
+    private EmailServiceProxy emailServiceProxy;
 
+    public void createIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws EmailPatternNotValidException, PasswordPatternNotValidException, EmailNotFoundException, PasswordNotFoundException, UrlConfigurationNotFoundException, AccountAlreadyExistsException, RoleNotFoundException, RolePrefixException, RoleNotDefinedException, AccountNotCreatedException, PermissionPrefixException, PermissionNotDefinedException, UnexpectedException, UnauthorizedException, UnprocessableEntityException, ForbiddenException, InternalServerErrorException {
+        AccountIdAndEmailAndActivationURLDTO accountIdAndEmailAndActivationURLDTO = accountService.createIndividualAccountWithDefaultMethod(account);
+        individualServiceProxy.createIndividual(new Individual(0, account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate()));
+        emailServiceProxy.sendURLActivationAccount(new EmailAndUrlDTO(accountIdAndEmailAndActivationURLDTO.getEmail(), accountIdAndEmailAndActivationURLDTO.getActivationURL()));
+    }
     @Override
-    public AccountIdAndEmailAndActivationURLDTO createCandidateAccountWithDefaultMethod(AccountAndRolesAndPermissionsDTO account) throws PasswordNotFoundException,
-            EmailNotFoundException,
-            EmailPatternNotValidException,
-            AccountAlreadyExistsException,
-            RolePrefixException,
-            RoleNotDefinedException,
-            PermissionPrefixException,
-            AccountNotCreatedException,
-            PermissionNotDefinedException,
-            RoleNotFoundException,
-            UrlConfigurationNotFoundException,
-            PasswordPatternNotValidException {
-        return accountService.createCandidateAccountWithDefaultMethod(account);
+    public AccountIdAndAuthoritiesDTO activateTheIndividualAccountCreatedByDefaultMethod(AccountEmailAndActivationTokenDTO accountEmailAndActivationTokenDTO) throws EmailNotFoundException, VerificationTokenNotFoundException, EmailPatternNotValidException, VerificationTokenPatternNotValidException, AccountNotFoundException, VerificationTokenDurationExpiredException, AccountIsActivatedException, VerificationTokensNotEqualsException {
+        return accountService.activateTheIndividualAccountCreatedByDefaultMethod(accountEmailAndActivationTokenDTO);
     }
 
-    @Override
-    public long createAdminAccount(AccountAndRolesAndPermissionsDTO account) throws EmailNotFoundException, PasswordNotFoundException, EmailPatternNotValidException, PasswordPatternNotValidException, AccountAlreadyExistsException, RoleNotFoundException, RolePrefixException, RoleNotDefinedException, PermissionPrefixException, PermissionNotDefinedException, AccountNotCreatedException {
-        List<String> roles = new ArrayList<>();
-        List<String> permissions = new ArrayList<>();
 
-        for (String role : account.getRoles()){
-            if (!roles.contains(role)){
-                roles.add(role);
-            }
-        }
-        account.setRoles(roles);
-
-        for (String permission : account.getPermissions()){
-            if (!permissions.contains(permission)){
-                permissions.add(permission);
-            }
-        }
-        account.setPermissions(permissions);
-
-        return accountService.createAdminAccountWithDefaultMethod(account);
-    }
 
     @Override
-    public void updateAdminAccountSuspensionState(long idAccount, Boolean value) throws AccountNotFoundException, ValueNullException, AuthenticationTypeNullPointerException, UnknownAuthenticationTypeException {
-        accountService.updateAdminAccountSuspensionState(idAccount, value);
-        if(value){
-           authenticationService.revokeAllAccountCurrentConnection(idAccount);
-        }
-    }
-
-    @Override
-    public void updateAdminAccountPassword(long idAccount, String newPassword) throws AccountNotFoundException, PasswordNotFoundException, PasswordPatternNotValidException, ValueNullException, AuthenticationTypeNullPointerException, UnknownAuthenticationTypeException {
-        accountService.updateAdminAccountPassword(idAccount, newPassword);
-        authenticationService.revokeAllAccountCurrentConnection(idAccount);
-    }
-
-    @Override
-    public void deleteOneAdminAccount(long idAccount) throws AccountNotFoundException {
-        accountService.deleteOneAdminAccount(idAccount);
-    }
-
-    @Override
-    public AccessTokenAndRefreshTokenAndFingerPrintDTO activateTheCandidateAccountCreatedByDefaultMethod(AccountEmailAndActivationTokenDTO accountEmailAndActivationTokenDTO,
-                                                                                                         JsonWebTokenConnectionInformationDTO jsonWebTokenConnectionInformation) throws EmailNotFoundException,
-            EmailPatternNotValidException,
-            VerificationTokenNotFoundException,
-            VerificationTokenPatternNotValidException,
-            VerificationTokenDurationExpiredException,
-            VerificationTokensNotEqualsException,
-            AccountNotFoundException,
-            AccountIsActivatedException, ValueNullException, AuthenticationTypeNullPointerException, UnknownAuthenticationTypeException {
-        AccessTokenAndRefreshTokenAndFingerPrintDTO accessTokenAndRefreshTokenAndFingerPrint;
-        AccountIdAndAuthoritiesDTO accountIdAndAuthorities;
-        JwtScopeAndSubjectAndFingerprintDTO jwtScopeAndSubjectAndFingerprint;
-        JwtSubjectAndFingerprintDTO jwtSubjectAndFingerprint;
-        String fingerPrint;
-
-        accountIdAndAuthorities = accountService.activateTheCandidateAccountCreatedByDefaultMethod(accountEmailAndActivationTokenDTO);
-        fingerPrint = authenticationService.generateFingerprint();
-
-        jwtScopeAndSubjectAndFingerprint =  new JwtScopeAndSubjectAndFingerprintDTO();
-        jwtScopeAndSubjectAndFingerprint.setSubject(accountIdAndAuthorities.getIdAccount());
-        jwtScopeAndSubjectAndFingerprint.setScope(accountIdAndAuthorities.getAuthorities());
-        jwtScopeAndSubjectAndFingerprint.setFingerprint(fingerPrint);
-
-        jwtSubjectAndFingerprint = new JwtSubjectAndFingerprintDTO();
-        jwtSubjectAndFingerprint.setSubject(accountIdAndAuthorities.getIdAccount());
-        jwtSubjectAndFingerprint.setFingerprint(fingerPrint);
-
-        accessTokenAndRefreshTokenAndFingerPrint = new AccessTokenAndRefreshTokenAndFingerPrintDTO();
-        accessTokenAndRefreshTokenAndFingerPrint.setRefreshToken(authenticationService
-                .generateRefreshToken(jwtSubjectAndFingerprint, jsonWebTokenConnectionInformation, AuthenticationTypeConstants.ACCOUNT_JSON_WEB_TOKEN, AccountTypeConstants.CANDIDATE_DEFAULT_ACCOUNT, UserTypeConstants.USER_CANDIDATE)
-                    .getRefreshToken());
-        accessTokenAndRefreshTokenAndFingerPrint.setAccessToken(authenticationService
-                .generateAccessToken(jwtScopeAndSubjectAndFingerprint, jsonWebTokenConnectionInformation, AuthenticationTypeConstants.ACCOUNT_JSON_WEB_TOKEN, UserTypeConstants.USER_CANDIDATE)
-                    .getAccessToken());
-        accessTokenAndRefreshTokenAndFingerPrint.setFingerPrint(fingerPrint);
-
-        return accessTokenAndRefreshTokenAndFingerPrint;
-    }
-
-    @Override
-    public AccountEmailAndUrlDTO generateActivationUrlForAccountCreatedByDefaultMethod(String email) throws EmailNotFoundException, EmailPatternNotValidException, VerificationTokenException, UrlConfigurationNotFoundException, AccountNotFoundException, VerificationTokenNotRegeneratedYetException {
-        return accountService.generateActivationUrlForAccountCreatedByDefaultMethod(email);
-    }
-
-    @Override
-    public long createCandidateAccountWithGoogleMethod(AccountEmailAndRolesAndPermissionsDTO account) throws EmailNotFoundException, EmailPatternNotValidException, AccountAlreadyExistsException, RolePrefixException, RoleNotDefinedException, PermissionPrefixException, AccountNotCreatedException, PermissionNotDefinedException, RoleNotFoundException {
-        return accountService.createCandidateAccountWithGoogleMethod(account);
-    }
-
-    @Override
-    public AccountEmailAndUrlDTO generateResetPasswordUrlForAccountCreatedByDefaultMethod(String email) throws UrlConfigurationNotFoundException, EmailNotFoundException, EmailPatternNotValidException, AccountNotFoundException, VerificationTokenNotRegeneratedYetException {
-        return accountService.generateResetPasswordUrlForAccountCreatedByDefaultMethod(email);
-    }
-
-    @Override
-    public void resetPasswordTheCandidateAccountCreatedByDefaultMethod(AccountEmailAndNewPasswordAndActivationTokenDTO accountEmailAndNewPasswordAndActivationTokenDTO) throws PasswordNotFoundException, EmailNotFoundException, EmailPatternNotValidException, VerificationTokensNotEqualsException, VerificationTokenPatternNotValidException, AccountNotFoundException, VerificationTokenDurationExpiredException, PasswordPatternNotValidException, VerificationTokenNotFoundException {
-        accountService.resetPasswordTheCandidateAccountCreatedByDefaultMethod(accountEmailAndNewPasswordAndActivationTokenDTO);
-    }
-
-    @Override
-    public List<String> readAllAdminRoles() {
-        return accountService.readAllAdminRoles();
-    }
-
-    @Override
-    public List<String> readAllAdminPermissions() {
-        return accountService.readAllAdminPermissions();
+    public void updateIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws PasswordPatternNotValidException, PasswordNotFoundException, AccountNotFoundException, UnexpectedException, UnauthorizedException {
+        accountService.updatePasswordIndividualAccountWithDefaultMethod(account);
+        individualServiceProxy.updateIndividual(account.getIdAccount(), new Individual(account.getIdAccount(), account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate()));
     }
 }
