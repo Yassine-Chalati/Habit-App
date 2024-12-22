@@ -1,10 +1,9 @@
-package com.internship_hiring_menara.emailing_service.controller;
+package com.habitapp.emailing_service.controller;
 
-import com.internship_hiring_menara.emailing_service.commons.constant.EmailSubjectConstants;
-import com.internship_hiring_menara.emailing_service.commons.constant.TemplateHTMLConstants;
-import com.internship_hiring_menara.emailing_service.domain.facade.EmailFacade;
-import com.internship_hiring_menara.emailing_service.domain.service.EmailService;
-import com.internship_hiring_menara.emailing_service.dto.activate.account.EmailAndURLDTO;
+import com.habitapp.emailing_service.commons.constant.EmailSubjectConstants;
+import com.habitapp.emailing_service.commons.constant.TemplateHTMLConstants;
+import com.habitapp.emailing_service.domain.facade.EmailFacade;
+import com.habitapp.emailing_service.dto.activate.account.EmailAndURLDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ public class EmailController {
     private EmailFacade emailFacade;
 
     @PostMapping("/send-url-activation-account")
-    @PreAuthorize("hasRole(T(com.internship_hiring_menara.common.common.account.RoleNameCommonConstants).AUTHENTICATION_SERVER)")
     public ResponseEntity<?> sendURLActivationAccount(@RequestBody EmailAndURLDTO emailAndURL){
         Map<String, Object> templateVariables = new HashMap<>();
         boolean result;

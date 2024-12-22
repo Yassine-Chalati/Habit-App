@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 @MappedSuperclass
 public abstract class User {
+
     @Id
     private long idAccount;
     private String firstName;

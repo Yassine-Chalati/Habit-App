@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.commons.constant;
+package com.habitapp.emailing_service.commons.constant;
 
 public class EmailSubjectConstants {
     public static final String SUBJECT_ACTIVATION_ACCOUNT = "Activate your account for internship application within Menara Holding";

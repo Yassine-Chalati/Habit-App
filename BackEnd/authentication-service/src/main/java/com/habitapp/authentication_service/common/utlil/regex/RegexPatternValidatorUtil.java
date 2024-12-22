@@ -1,6 +1,7 @@
-package com.menara.authentication.common.utlil.regex;
+package com.habitapp.authentication_service.common.utlil.regex;
 
-import com.menara.authentication.annotation.Util;
+
+import com.habitapp.authentication_service.annotation.Util;
 
 import java.util.regex.Pattern;
 

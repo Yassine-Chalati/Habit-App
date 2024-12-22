@@ -1,7 +1,7 @@
-package com.menara.authentication.common.utlil.generator.id;
+package com.habitapp.authentication_service.common.utlil.generator.id;
 
-import com.menara.authentication.annotation.Util;
-import com.menara.authentication.common.utlil.converter.ConverterUtil;
+import com.habitapp.authentication_service.annotation.Util;
+import com.habitapp.authentication_service.common.utlil.converter.ConverterUtil;
 import lombok.AllArgsConstructor;
 
 import java.util.UUID;

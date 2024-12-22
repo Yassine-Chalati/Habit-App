@@ -1,24 +1,21 @@
-package com.menara.authentication.domain.facade.imp;
+package com.habitapp.authentication_service.domain.facade.imp;
 
-import com.menara.authentication.common.constant.AccountTypeConstants;
-import com.menara.authentication.common.constant.AuthenticationTypeConstants;
-import com.menara.authentication.common.constant.UserTypeConstants;
 import com.menara.authentication.domain.exception.account.*;
-import com.menara.authentication.domain.exception.account.RoleNotDefinedException;
-import com.menara.authentication.domain.exception.account.RoleNotFoundException;
-import com.menara.authentication.domain.exception.account.RolePrefixException;
-import com.menara.authentication.domain.exception.authentication.AuthenticationTypeNullPointerException;
-import com.menara.authentication.domain.exception.authentication.UnknownAuthenticationTypeException;
-import com.menara.authentication.domain.exception.general.ValueNullException;
-import com.menara.authentication.domain.facade.AccountFacade;
+import com.habitapp.authentication_service.domain.exception.account.RoleNotDefinedException;
+import com.habitapp.authentication_service.domain.exception.account.RoleNotFoundException;
+import com.habitapp.authentication_service.domain.exception.account.RolePrefixException;
+import com.habitapp.authentication_service.domain.exception.authentication.AuthenticationTypeNullPointerException;
+import com.habitapp.authentication_service.domain.exception.authentication.UnknownAuthenticationTypeException;
+import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
+import com.habitapp.authentication_service.domain.facade.AccountFacade;
 import com.menara.authentication.annotation.Facade;
 import com.menara.authentication.domain.service.AccountService;
 import com.menara.authentication.domain.service.AuthenticationService;
 import com.menara.authentication.dto.account.*;
-import com.menara.authentication.dto.jwt.AccessTokenAndRefreshTokenAndFingerPrintDTO;
-import com.menara.authentication.dto.jwt.JsonWebTokenConnectionInformationDTO;
-import com.menara.authentication.dto.jwt.JwtScopeAndSubjectAndFingerprintDTO;
-import com.menara.authentication.dto.jwt.JwtSubjectAndFingerprintDTO;
+import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenAndFingerPrintDTO;
+import com.habitapp.authentication_service.dto.jwt.JsonWebTokenConnectionInformationDTO;
+import com.habitapp.authentication_service.dto.jwt.JwtScopeAndSubjectAndFingerprintDTO;
+import com.habitapp.authentication_service.dto.jwt.JwtSubjectAndFingerprintDTO;
 import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;

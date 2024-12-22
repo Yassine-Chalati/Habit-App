@@ -1,11 +1,10 @@
-package com.menara.authentication.dto.user.user;
+package com.habitapp.authentication_service.dto.user.user;
 
-import com.menara.authentication.dto.user.admin.AdminInformationDTO;
-import com.menara.authentication.dto.user.candidate.CandidateInformationDTO;
+import com.habitapp.authentication_service.dto.user.admin.AdminInformationDTO;
+import com.habitapp.authentication_service.dto.user.individual.CandidateInformationDTO;
 import lombok.*;
 
 import java.util.List;
-import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor

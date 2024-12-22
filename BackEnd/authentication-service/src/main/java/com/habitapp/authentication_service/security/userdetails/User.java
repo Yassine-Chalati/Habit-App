@@ -1,4 +1,4 @@
-package com.menara.authentication.security.userdetails;
+package com.habitapp.authentication_service.security.userdetails;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

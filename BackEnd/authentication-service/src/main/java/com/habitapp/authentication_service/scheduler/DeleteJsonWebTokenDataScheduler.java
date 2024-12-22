@@ -1,7 +1,7 @@
-package com.menara.authentication.scheduler;
+package com.habitapp.authentication_service.scheduler;
 
-import com.menara.authentication.annotation.Scheduler;
-import com.menara.authentication.domain.facade.AuthenticationFacade;
+import com.habitapp.authentication_service.annotation.Scheduler;
+import com.habitapp.authentication_service.domain.facade.AuthenticationFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;

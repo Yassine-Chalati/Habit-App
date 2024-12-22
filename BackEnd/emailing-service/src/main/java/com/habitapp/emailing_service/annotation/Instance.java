@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.annotation;
+package com.habitapp.emailing_service.annotation;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 

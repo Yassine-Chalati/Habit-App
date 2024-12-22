@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.commons.constant;
+package com.habitapp.emailing_service.commons.constant;
 
 public class JwtClaimsConstants {
     public static final String FINGERPRINT = "fingerprint";

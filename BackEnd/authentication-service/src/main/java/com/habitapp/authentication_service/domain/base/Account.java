@@ -1,6 +1,6 @@
-package com.menara.authentication.domain.base;
+package com.habitapp.authentication_service.domain.base;
 
-import com.menara.authentication.domain.entity.*;
+import com.habitapp.authentication_service.domain.entity.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,14 +20,6 @@ public abstract class Account {
     private long id;
     private String email;
     private LocalDateTime creationDate;
-//    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idAccount", referencedColumnName = "id")
-//    private List<AccountAuthentication> accountAuthentications;
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<AccountJsonWebToken> accountJsonWebTokens;
-    @OneToOne //(orphanRemoval = true, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id", referencedColumnName = "idAccount")
-    private AccountAuthentication accountAuthentication;
     @ManyToMany
     private List<Role> roles;
     @ManyToMany
@@ -45,6 +37,5 @@ public abstract class Account {
         this.creationDate = creationDate;
         this.roles = null;
         this.permissions = null;
-        this.accountAuthentication = null;
     }
 }

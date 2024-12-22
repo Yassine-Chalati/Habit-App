@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.domain.facade;
+package com.habitapp.emailing_service.domain.facade;
 
 import java.util.Map;
 

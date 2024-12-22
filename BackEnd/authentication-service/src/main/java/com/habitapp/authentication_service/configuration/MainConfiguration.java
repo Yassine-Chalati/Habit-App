@@ -1,6 +1,7 @@
-package com.menara.authentication.configuration;
+package com.habitapp.authentication_service.configuration;
 
-import com.menara.authentication.configuration.record.*;
+
+import com.habitapp.authentication_service.configuration.record.*;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -23,7 +24,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         DurationResendUrl.class,
         HttpResponseTime.class,
         SuperAdminCredential.class,
-        CredentialUserService.class
+        CredentialProfileService.class
 })
 public class MainConfiguration {
 }

@@ -1,4 +1,4 @@
-package com.menara.authentication.dto.account;
+package com.habitapp.authentication_service.dto.account;
 
 import lombok.*;
 

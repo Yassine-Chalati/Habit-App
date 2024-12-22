@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.domain.service;
+package com.habitapp.emailing_service.domain.service;
 
 import java.util.Map;
 

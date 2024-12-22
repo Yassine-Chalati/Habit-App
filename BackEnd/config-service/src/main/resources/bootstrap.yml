@@ -23,6 +23,7 @@ spring:
             - habit-service/
             - notification-service/
             - progress-service/
+            - profile-service/
         bootstrap: true
       allow-override: true
       override-none: false

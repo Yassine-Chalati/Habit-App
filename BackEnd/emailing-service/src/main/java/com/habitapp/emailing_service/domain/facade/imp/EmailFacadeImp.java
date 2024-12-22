@@ -1,8 +1,8 @@
-package com.internship_hiring_menara.emailing_service.domain.facade.imp;
+package com.habitapp.emailing_service.domain.facade.imp;
 
-import com.internship_hiring_menara.emailing_service.annotation.Facade;
-import com.internship_hiring_menara.emailing_service.domain.facade.EmailFacade;
-import com.internship_hiring_menara.emailing_service.domain.service.EmailService;
+import com.habitapp.emailing_service.annotation.Facade;
+import com.habitapp.emailing_service.domain.facade.EmailFacade;
+import com.habitapp.emailing_service.domain.service.EmailService;
 import lombok.AllArgsConstructor;
 
 import java.util.Map;

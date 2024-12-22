@@ -1,4 +1,4 @@
-package com.menara.authentication.dto.jwt;
+package com.habitapp.authentication_service.dto.jwt;
 
 
 import lombok.*;

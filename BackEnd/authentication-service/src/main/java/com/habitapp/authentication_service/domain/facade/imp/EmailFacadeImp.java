@@ -1,9 +1,9 @@
-package com.menara.authentication.domain.facade.imp;
+package com.habitapp.authentication_service.domain.facade.imp;
 
 import com.menara.authentication.annotation.Facade;
-import com.menara.authentication.domain.facade.EmailFacade;
-import com.menara.authentication.dto.email.EmailAndUrlDTO;
-import com.menara.authentication.proxy.client.emailing.EmailServiceProxy;
+import com.habitapp.authentication_service.domain.facade.EmailFacade;
+import com.habitapp.authentication_service.dto.email.EmailAndUrlDTO;
+import com.habitapp.authentication_service.proxy.client.emailing.EmailServiceProxy;
 import com.menara.authentication.proxy.exception.common.*;
 import lombok.AllArgsConstructor;
 

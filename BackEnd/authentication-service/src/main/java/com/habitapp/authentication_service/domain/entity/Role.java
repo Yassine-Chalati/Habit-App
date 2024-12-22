@@ -1,4 +1,4 @@
-package com.menara.authentication.domain.entity;
+package com.habitapp.authentication_service.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

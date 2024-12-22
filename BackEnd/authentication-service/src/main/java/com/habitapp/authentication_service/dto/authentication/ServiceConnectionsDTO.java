@@ -1,8 +1,7 @@
-package com.menara.authentication.dto.authentication;
+package com.habitapp.authentication_service.dto.authentication;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor

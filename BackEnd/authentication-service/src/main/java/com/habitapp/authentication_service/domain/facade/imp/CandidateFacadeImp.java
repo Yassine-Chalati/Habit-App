@@ -1,20 +1,19 @@
-package com.menara.authentication.domain.facade.imp;
+package com.habitapp.authentication_service.domain.facade.imp;
 
-import com.menara.authentication.annotation.Facade;
-import com.menara.authentication.domain.facade.CandidateFacade;
-import com.menara.authentication.dto.user.candidate.CandidateInformationDTO;
-import com.menara.authentication.proxy.client.user.CandidateServiceProxy;
-import com.menara.authentication.proxy.exception.common.UnauthorizedException;
-import com.menara.authentication.proxy.exception.common.UnexpectedException;
+import com.habitapp.authentication_service.domain.facade.IndividualFacade;
+import com.habitapp.authentication_service.annotation.Facade;
+import com.habitapp.authentication_service.proxy.client.profile.IndividualServiceProxy;
+import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
+import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
 import lombok.AllArgsConstructor;
 
 @Facade
 @AllArgsConstructor
-public class CandidateFacadeImp implements CandidateFacade {
-    private CandidateServiceProxy candidateServiceProxy;
+public class CandidateFacadeImp implements IndividualFacade {
+    private IndividualServiceProxy individualServiceProxy;
 
     @Override
     public void createCandidate(CandidateInformationDTO candidateInformationDTO) throws UnexpectedException, UnauthorizedException {
-        candidateServiceProxy.createCandidate(candidateInformationDTO);
+        individualServiceProxy.createCandidate(candidateInformationDTO);
     }
 }

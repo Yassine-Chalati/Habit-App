@@ -1,21 +1,19 @@
-package com.menara.authentication.domain.facade.imp;
+package com.habitapp.authentication_service.domain.facade.imp;
 
 import com.menara.authentication.annotation.Facade;
 import com.menara.authentication.domain.exception.account.*;
-import com.menara.authentication.domain.exception.account.RoleNotDefinedException;
-import com.menara.authentication.domain.exception.account.RolePrefixException;
-import com.menara.authentication.domain.exception.admin.AdminsIdsNotFoundException;
-import com.menara.authentication.domain.exception.admin.KeywordsNotFoundException;
-import com.menara.authentication.domain.exception.admin.MissingAdminInformationException;
-import com.menara.authentication.domain.exception.general.ValueNullException;
-import com.menara.authentication.domain.facade.AdminFacade;
+import com.habitapp.authentication_service.domain.exception.account.RoleNotDefinedException;
+import com.habitapp.authentication_service.domain.exception.account.RolePrefixException;
+import com.habitapp.authentication_service.domain.exception.admin.AdminsIdsNotFoundException;
+import com.habitapp.authentication_service.domain.exception.admin.KeywordsNotFoundException;
+import com.habitapp.authentication_service.domain.exception.admin.MissingAdminInformationException;
+import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.menara.authentication.domain.service.AccountService;
 import com.menara.authentication.dto.account.*;
-import com.menara.authentication.dto.user.admin.AdminInformationDTO;
-import com.menara.authentication.proxy.client.user.AdminServiceProxy;
-import com.menara.authentication.proxy.exception.common.UnauthorizedException;
-import com.menara.authentication.proxy.exception.common.UnexpectedException;
-import com.menara.authentication.proxy.exception.common.UnexpectedResponseBodyException;
+import com.habitapp.authentication_service.dto.user.admin.AdminInformationDTO;
+import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
+import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
+import com.habitapp.authentication_service.proxy.exception.common.UnexpectedResponseBodyException;
 import com.menara.authentication.proxy.exception.user.*;
 import lombok.AllArgsConstructor;
 

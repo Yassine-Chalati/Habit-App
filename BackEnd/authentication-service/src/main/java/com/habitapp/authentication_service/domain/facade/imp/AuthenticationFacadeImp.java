@@ -1,34 +1,32 @@
-package com.menara.authentication.domain.facade.imp;
+package com.habitapp.authentication_service.domain.facade.imp;
 
 import com.internship_hiring_menara.common.common.account.RoleNameCommonConstants;
 import com.menara.authentication.annotation.Facade;
 import com.menara.authentication.domain.exception.account.*;
 import com.menara.authentication.domain.exception.authentication.*;
-import com.menara.authentication.domain.exception.general.ValueNullException;
-import com.menara.authentication.domain.facade.AuthenticationFacade;
+import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
+import com.habitapp.authentication_service.domain.facade.AuthenticationFacade;
 import com.menara.authentication.domain.service.AccountService;
 import com.menara.authentication.domain.service.AuthenticationService;
-import com.menara.authentication.dto.account.AccountDTO;
-import com.menara.authentication.dto.account.AccountEmailAndRolesAndPermissionsDTO;
-import com.menara.authentication.dto.account.SuperAdminAccountDTO;
+import com.habitapp.authentication_service.dto.account.AccountDTO;
+import com.habitapp.authentication_service.dto.account.AccountEmailAndRolesAndPermissionsDTO;
+import com.habitapp.authentication_service.dto.account.SuperAdminAccountDTO;
 import com.menara.authentication.dto.authentication.*;
-import com.menara.authentication.dto.connection.AccountConnectionInformationDTO;
-import com.menara.authentication.dto.connection.AccountInformationConnectionsInformationDTO;
-import com.menara.authentication.dto.connection.ServiceConnectionInformationDTO;
-import com.menara.authentication.dto.connection.SuperAdminConnectionInformationDTO;
+import com.habitapp.authentication_service.dto.connection.AccountConnectionInformationDTO;
+import com.habitapp.authentication_service.dto.connection.AccountInformationConnectionsInformationDTO;
+import com.habitapp.authentication_service.dto.connection.ServiceConnectionInformationDTO;
+import com.habitapp.authentication_service.dto.connection.SuperAdminConnectionInformationDTO;
 import com.menara.authentication.dto.jwt.*;
-import com.menara.authentication.dto.service.ServiceCredentialDTO;
-import com.menara.authentication.dto.user.admin.AdminInformationDTO;
-import com.menara.authentication.dto.user.candidate.CandidateInformationDTO;
-import com.menara.authentication.dto.user.candidate.CandidateInformationWithoutIdAccountDTO;
-import com.menara.authentication.dto.user.user.CandidatesAndAdminsInformationDTO;
-import com.menara.authentication.proxy.client.user.AdminServiceProxy;
-import com.menara.authentication.proxy.client.user.CandidateServiceProxy;
-import com.menara.authentication.proxy.client.user.UserServiceProxy;
-import com.menara.authentication.proxy.exception.common.UnauthorizedException;
-import com.menara.authentication.proxy.exception.common.UnexpectedException;
-import com.menara.authentication.proxy.exception.common.UnexpectedResponseBodyException;
-import com.menara.authentication.security.jwt.ServerJWTStorage;
+import com.habitapp.authentication_service.dto.service.ServiceCredentialDTO;
+import com.habitapp.authentication_service.dto.user.admin.AdminInformationDTO;
+import com.habitapp.authentication_service.dto.user.individual.CandidateInformationDTO;
+import com.habitapp.authentication_service.dto.user.individual.CandidateInformationWithoutIdAccountDTO;
+import com.habitapp.authentication_service.dto.user.user.CandidatesAndAdminsInformationDTO;
+import com.habitapp.authentication_service.proxy.client.profile.IndividualServiceProxy;
+import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
+import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
+import com.habitapp.authentication_service.proxy.exception.common.UnexpectedResponseBodyException;
+import com.habitapp.authentication_service.security.jwt.ServerJWTStorage;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 
@@ -43,7 +41,7 @@ import java.util.Map;
 public class AuthenticationFacadeImp implements AuthenticationFacade {
     private AuthenticationService authenticationService;
     private AccountService accountService;
-    private CandidateServiceProxy candidateServiceProxy;
+    private IndividualServiceProxy individualServiceProxy;
     private AdminServiceProxy adminServiceProxy;
     private UserServiceProxy userServiceProxy;
     private ServerJWTStorage serverJWTStorage;
@@ -108,7 +106,7 @@ public class AuthenticationFacadeImp implements AuthenticationFacade {
             candidateInformation.setImageUrl(candidateInformationWithoutIdAccount.getImageUrl());
 
             try {
-                candidateServiceProxy.createCandidate(candidateInformation);
+                individualServiceProxy.createCandidate(candidateInformation);
             } catch (UnexpectedException ex) {
                 accountService.deleteCandidateGoogleAccountById(idAccount);
                 throw ex;
@@ -116,7 +114,7 @@ public class AuthenticationFacadeImp implements AuthenticationFacade {
                 System.out.println("generate jwt server");
                 this.authenticateAuthenticationServiceWithDefaultMethod();
                 try {
-                    candidateServiceProxy.createCandidate(candidateInformation);
+                    individualServiceProxy.createCandidate(candidateInformation);
                 } catch (UnexpectedException | UnauthorizedException exc) {
                     accountService.deleteCandidateGoogleAccountById(idAccount);
                     throw exc;
@@ -232,7 +230,7 @@ public class AuthenticationFacadeImp implements AuthenticationFacade {
         AuthenticationInformationDTO authenticationInformationDTO;
 
         Map<Long, AuthenticationInformationDTO> authenticationInformationMap = authenticationService.getAllCandidateAuthentications();
-        List<CandidateInformationDTO> candidateInformationList = candidateServiceProxy.readAllCandidates().values().stream().toList();
+        List<CandidateInformationDTO> candidateInformationList = individualServiceProxy.readAllCandidates().values().stream().toList();
 
         for (CandidateInformationDTO candidate : candidateInformationList){
             authenticationInformationDTO = authenticationInformationMap.get(candidate.getIdAccount());

@@ -1,7 +1,7 @@
-package com.menara.authentication.domain.base;
+package com.habitapp.authentication_service.domain.base;
 
-import com.menara.authentication.domain.entity.Permission;
-import com.menara.authentication.domain.entity.Role;
+import com.habitapp.authentication_service.domain.entity.Permission;
+import com.habitapp.authentication_service.domain.entity.Role;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 

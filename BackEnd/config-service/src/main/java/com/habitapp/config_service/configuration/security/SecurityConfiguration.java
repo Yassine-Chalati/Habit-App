@@ -21,22 +21,24 @@ import lombok.AllArgsConstructor;
 @Order(2)
 @AllArgsConstructor
 public class SecurityConfiguration {
+
     private Credential credential;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(authz -> authz
-                    .anyRequest().authenticated())
+                .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults());
         return httpSecurity.build();
     }
 
     /**
-     * @param passwordEncoder is for hashing password using BCrypt 
-     * @return {@return } it contains the User information used for authenticate to config client
+     * @param passwordEncoder is for hashing password using BCrypt
+     * @return {@return } it contains the User information used for authenticate
+     * to config client
      */
     @Bean
-    InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder){
+    InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
         return new InMemoryUserDetailsManager(User.builder()
                 .username(this.credential.username())
                 .password(passwordEncoder.encode(credential.password()))
@@ -45,7 +47,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    PasswordEncoder bCryptPasswordEncoder(){
+    PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
