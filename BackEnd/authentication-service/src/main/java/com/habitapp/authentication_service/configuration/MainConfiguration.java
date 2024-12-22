@@ -13,18 +13,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties({
         AccessTokenRsaKeysConfig.class,
         RefreshTokenRsaKeysConfig.class,
-        AccessBadge.class,
-        FrontEndURL.class,
         DurationOfGeneratedToken.class,
-        UrlDelegateService.class,
-        CredentialEmailingService.class,
         JwtClaim.class,
-        CookiesAttributesValues.class,
-        GoogleOAuth2Credential.class,
         DurationResendUrl.class,
         HttpResponseTime.class,
-        SuperAdminCredential.class,
-        CredentialProfileService.class
+        UrlDelegateService.class
 })
 public class MainConfiguration {
 }

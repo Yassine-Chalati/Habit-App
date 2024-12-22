@@ -1,11 +1,10 @@
 package com.habitapp.authentication_service.proxy.client.profile;
 
 import com.habitapp.authentication_service.annotation.Proxy;
-
 import com.habitapp.authentication_service.client.profile.IndividualClient;
 import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
 import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
-import com.habitapp.profile_service.domain.entity.Individual;
+import com.habitapp.common.http.request_response.individual.IndividualRequestResponseHttp;
 import feign.FeignException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,7 @@ public class IndividualServiceProxy {
     private final IndividualClient individualClient;
     
 
-    public void createIndividual(Individual individual) throws UnauthorizedException, UnexpectedException {
+    public void createIndividual(IndividualRequestResponseHttp individual) throws UnauthorizedException, UnexpectedException {
         try {
             individualClient.createIndividual(individual);
         } catch (FeignException e) {
@@ -24,9 +23,9 @@ public class IndividualServiceProxy {
         }
     }
 
-    public Individual readOneIndividual(Long id) throws UnauthorizedException, UnexpectedException {
+    public IndividualRequestResponseHttp readOneIndividual(Long id) throws UnauthorizedException, UnexpectedException {
         try {
-            ResponseEntity<Individual> response = individualClient.readOneIndividual(id);
+            ResponseEntity<IndividualRequestResponseHttp> response = individualClient.readOneIndividual(id);
             return response.getBody();
         } catch (FeignException e) {
             handleFeignException(e, "read individual with id: " + id);
@@ -34,9 +33,9 @@ public class IndividualServiceProxy {
         }
     }
 
-    public Individual updateIndividual(Long id, Individual updatedIndividual) throws UnauthorizedException, UnexpectedException {
+    public IndividualRequestResponseHttp updateIndividual(Long id, IndividualRequestResponseHttp updatedIndividual) throws UnauthorizedException, UnexpectedException {
         try {
-            ResponseEntity<Individual> response = individualClient.updateProfile(id, updatedIndividual);
+            ResponseEntity<IndividualRequestResponseHttp> response = individualClient.updateProfile(id, updatedIndividual);
             return response.getBody();
         } catch (FeignException e) {
             handleFeignException(e, "update individual with id: " + id);

@@ -1,6 +1,7 @@
 package com.habitapp.authentication_service.domain.base;
 
-import com.habitapp.authentication_service.domain.entity.*;
+import com.habitapp.authentication_service.domain.entity.Permission;
+import com.habitapp.authentication_service.domain.entity.Role;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -4,8 +4,9 @@ import com.habitapp.authentication_service.domain.exception.account.AccountNotFo
 import com.habitapp.authentication_service.domain.exception.account.EmailNotFoundException;
 import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
 import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
-import com.habitapp.profile_service.domain.entity.Individual;
+import com.habitapp.common.http.request_response.individual.IndividualRequestResponseHttp;
+
 
 public interface IndividualFacade {
-    public Individual readIndividualAccountWithDefaultMethod(long idAccount) throws EmailNotFoundException, AccountNotFoundException, UnexpectedException, UnauthorizedException;
+    public IndividualRequestResponseHttp readIndividualAccountWithDefaultMethod(long idAccount) throws EmailNotFoundException, AccountNotFoundException, UnexpectedException, UnauthorizedException;
 }

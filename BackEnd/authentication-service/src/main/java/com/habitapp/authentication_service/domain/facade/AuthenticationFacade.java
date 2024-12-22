@@ -1,10 +1,12 @@
 package com.habitapp.authentication_service.domain.facade;
 
-import com.habitapp.authentication_service.domain.exception.account.*;
-import com.habitapp.authentication_service.domain.exception.authentication.*;
+import com.habitapp.authentication_service.domain.exception.authentication.AccountActivationException;
+import com.habitapp.authentication_service.domain.exception.authentication.AuthenticationTypeNullPointerException;
+import com.habitapp.authentication_service.domain.exception.authentication.InstanceOfException;
+import com.habitapp.authentication_service.domain.exception.authentication.UnknownAuthenticationTypeException;
 import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.habitapp.authentication_service.dto.account.AccountDTO;
-import com.habitapp.authentication_service.dto.jwt.*;
+import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenDTO;
 
 public interface AuthenticationFacade {
     public AccessTokenAndRefreshTokenDTO authenticateIndividualWithDefaultMethod(AccountDTO account) throws InstanceOfException, AccountActivationException, ValueNullException, UnknownAuthenticationTypeException, AuthenticationTypeNullPointerException;

@@ -2,7 +2,8 @@ package com.habitapp.authentication_service.configuration.security;
 
 
 import com.habitapp.authentication_service.annotation.Instance;
-import com.habitapp.authentication_service.configuration.record.*;
+import com.habitapp.authentication_service.configuration.record.AccessTokenRsaKeysConfig;
+import com.habitapp.authentication_service.configuration.record.RefreshTokenRsaKeysConfig;
 import com.habitapp.authentication_service.domain.entity.DefaultAccountIndividual;
 import com.habitapp.authentication_service.domain.entity.Permission;
 import com.habitapp.authentication_service.domain.entity.Role;
@@ -41,14 +42,12 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.session.DisableEncodeUrlFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -59,11 +58,6 @@ public class SecurityConfiguration  {
     private AccessTokenRsaKeysConfig accessTokenRsaKeysConfig;
     private RefreshTokenRsaKeysConfig refreshTokenRsaKeysConfig;
     private DefaultAccountIndividualRepository defaultAccountIndividualRepository;
-    private FrontEndURL frontEndURL;
-    private CredentialEmailingService credentialEmailingService;
-    private CredentialProfileService credentialProfileService;
-    private VerifyTokenFingerprintFilter verifyTokenFingerprintFilter;
-    private VerifyAccessBadgeFilter verifyAccessBadgeFilter;
 
     //todo transform filter to DI
     @Bean
@@ -71,40 +65,19 @@ public class SecurityConfiguration  {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authentication/super-admin/default",
-                                "/authentication/admin/default",
-                                "/authentication/candidate/default",
-                                "/authentication/candidate/google",
-                                "/authentication/candidate/google/callback",
-                                "/authentication/service/default",
+                        .requestMatchers(
+                                "/authentication/individual/default",
                                 "/authentication/refresh/token",
-                                "/account/candidate/default-method/create",
-                                "/account/candidate/default-method/activate/token/generate",
-                                "/account/candidate/default-method/activate/token/*",
-                                "/account/candidate/default-method/reset-password/token/generate",
-                                "/account/candidate/default-method/reset-password/token/*").permitAll()
+                                "/account/individual/default-method/create",
+                                "/account/individual/default-method/activate/token/*"
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
                 .cors(Customizer.withDefaults())
-                .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class) //BearerTokenAuthenticationFilter.class
-                .addFilterAfter(verifyTokenFingerprintFilter, BearerTokenAuthenticationFilter.class)
                 .build();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        configuration.setAllowedOrigins(Collections.singletonList(this.frontEndURL.url()));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedHeader("*");
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
     @Bean

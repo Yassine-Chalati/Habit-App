@@ -1,11 +1,11 @@
 package com.habitapp.authentication_service.domain.facade.imp;
 
-import com.habitapp.authentication_service.domain.facade.IndividualFacade;
 import com.habitapp.authentication_service.annotation.Facade;
+import com.habitapp.authentication_service.domain.facade.IndividualFacade;
 import com.habitapp.authentication_service.proxy.client.profile.IndividualServiceProxy;
 import com.habitapp.authentication_service.proxy.exception.common.UnauthorizedException;
 import com.habitapp.authentication_service.proxy.exception.common.UnexpectedException;
-import com.habitapp.profile_service.domain.entity.Individual;
+import com.habitapp.common.http.request_response.individual.IndividualRequestResponseHttp;
 import lombok.AllArgsConstructor;
 
 @Facade
@@ -14,7 +14,7 @@ public class IndividualFacadeImp implements IndividualFacade {
     private IndividualServiceProxy individualServiceProxy;
 
     @Override
-    public Individual readIndividualAccountWithDefaultMethod(long idAccount) throws UnexpectedException, UnauthorizedException {
+    public IndividualRequestResponseHttp readIndividualAccountWithDefaultMethod(long idAccount) throws UnexpectedException, UnauthorizedException {
         return individualServiceProxy.readOneIndividual(idAccount);
     }
 }

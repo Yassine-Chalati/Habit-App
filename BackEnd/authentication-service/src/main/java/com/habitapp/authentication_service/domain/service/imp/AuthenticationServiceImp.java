@@ -1,16 +1,14 @@
 package com.habitapp.authentication_service.domain.service.imp;
 
 
-
 import com.habitapp.authentication_service.annotation.Instance;
 import com.habitapp.authentication_service.common.constant.JwtClaimsConstants;
-import com.habitapp.authentication_service.common.utlil.cryptography.hash.HashUtil;
 import com.habitapp.authentication_service.common.utlil.generator.id.GenerateUniqueIdUtil;
-import com.habitapp.authentication_service.common.utlil.generator.random.token.RandomTokenGeneratorUtil;
-import com.habitapp.authentication_service.configuration.record.FrontEndURL;
-import com.habitapp.authentication_service.configuration.record.GoogleOAuth2Credential;
 import com.habitapp.authentication_service.configuration.record.JwtClaim;
-import com.habitapp.authentication_service.domain.exception.authentication.*;
+import com.habitapp.authentication_service.domain.exception.authentication.AccountActivationException;
+import com.habitapp.authentication_service.domain.exception.authentication.AuthenticationTypeNullPointerException;
+import com.habitapp.authentication_service.domain.exception.authentication.InstanceOfException;
+import com.habitapp.authentication_service.domain.exception.authentication.UnknownAuthenticationTypeException;
 import com.habitapp.authentication_service.domain.exception.general.ValueNullException;
 import com.habitapp.authentication_service.domain.service.AuthenticationService;
 import com.habitapp.authentication_service.dto.account.AccountDTO;
@@ -30,7 +28,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +46,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
                                     @Instance("DefaultAccountIndividual") AuthenticationManager individualDefaultMthodAuthenticationManager,
                                     @Instance("RefreshToken") AuthenticationManager authenticationManagerRefreshToken,
                                     JwtClaim jwtClaim,
-                                    HashUtil hashUtil,
                                     GenerateUniqueIdUtil generateUniqueIdUtil,
-                                    RandomTokenGeneratorUtil randomTokenGeneratorUtil,
-                                    GoogleOAuth2Credential googleOAuth2Credential,
-                                    FrontEndURL frontEndURL,
                                     @Instance("accessJwtEncoder") JwtEncoder accessJwtEncoder,
                                     @Instance("refreshJwtEncoder") JwtEncoder refrshJwtEncoder,
                                     @Instance("refreshJwtDecoder") JwtDecoder refrshjwtDecoder) {

@@ -1,6 +1,5 @@
 package com.habitapp.authentication_service.dto.account;
 
-import com.habitapp.profile_service.domain.enumeration.Gender;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +15,7 @@ public class AccountAndInformationDTO {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private Gender gender;
+    private String gender;
     private String email;
     private String password;
     private List<String> roles;
