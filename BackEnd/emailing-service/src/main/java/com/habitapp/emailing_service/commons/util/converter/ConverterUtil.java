@@ -1,7 +1,7 @@
-package com.internship_hiring_menara.emailing_service.commons.util.converter;
+package com.habitapp.emailing_service.commons.util.converter;
 
 
-import com.internship_hiring_menara.emailing_service.annotation.Util;
+import com.habitapp.emailing_service.annotation.Util;
 
 @Util
 public class ConverterUtil {

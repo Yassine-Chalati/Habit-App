@@ -1,4 +1,4 @@
-package com.menara.authentication.domain.exception.account;
+package com.habitapp.authentication_service.domain.exception.account;
 
 public class AccountNotCreatedException extends Exception{
     public AccountNotCreatedException(String message){

@@ -1,23 +1,14 @@
-package com.menara.authentication.configuration.security;
+package com.habitapp.authentication_service.configuration.security;
 
-import com.internship_hiring_menara.common.common.account.PermissionNameCommonConstants;
-import com.internship_hiring_menara.common.common.account.RoleNameCommonConstants;
-import com.internship_hiring_menara.common.common.account.ServiceIdCommonConstants;
-import com.menara.authentication.annotation.Instance;
-import com.menara.authentication.common.constant.SuperAdminIdAccountConstants;
-import com.menara.authentication.configuration.record.*;
-import com.menara.authentication.domain.entity.*;
-import com.menara.authentication.domain.repository.DefaultAccountAdminRepository;
-import com.menara.authentication.domain.repository.DefaultAccountCandidateRepository;
-import com.menara.authentication.domain.repository.GoogleAccountCandidateRepository;
-import com.menara.authentication.security.exception.userdetailsservice.IdAccountNotFoundException;
-import com.menara.authentication.security.exception.userdetailsservice.PasswordNullException;
-import com.menara.authentication.security.exception.userdetailsservice.UsernameNullException;
-import com.menara.authentication.security.filter.VerifyAccessBadgeFilter;
-import com.menara.authentication.security.filter.VerifyRevokedJwtFilter;
-import com.menara.authentication.security.filter.VerifyTokenFingerprintFilter;
-import com.menara.authentication.security.userdetails.*;
-import com.menara.authentication.security.userdetailsservice.InMemoryUserDetailsManagerOfServiceDefaultMethod;
+
+import com.habitapp.authentication_service.annotation.Instance;
+import com.habitapp.authentication_service.configuration.record.AccessTokenRsaKeysConfig;
+import com.habitapp.authentication_service.configuration.record.RefreshTokenRsaKeysConfig;
+import com.habitapp.authentication_service.domain.entity.DefaultAccountIndividual;
+import com.habitapp.authentication_service.domain.entity.Permission;
+import com.habitapp.authentication_service.domain.entity.Role;
+import com.habitapp.authentication_service.domain.repository.DefaultAccountIndividualRepository;
+import com.habitapp.authentication_service.security.userdetails.IndividualDefaultMethod;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -51,15 +42,12 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.session.DisableEncodeUrlFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.*;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -69,16 +57,7 @@ import java.util.*;
 public class SecurityConfiguration  {
     private AccessTokenRsaKeysConfig accessTokenRsaKeysConfig;
     private RefreshTokenRsaKeysConfig refreshTokenRsaKeysConfig;
-    private DefaultAccountCandidateRepository defaultAccountCandidateRepository;
-    private GoogleAccountCandidateRepository googleAccountCandidateRepository;
-    private FrontEndURL frontEndURL;
-    private CredentialEmailingService credentialEmailingService;
-    private CredentialUserService credentialUserService;
-    private VerifyRevokedJwtFilter verifyRevokedJwtFilter;
-    private VerifyTokenFingerprintFilter verifyTokenFingerprintFilter;
-    private VerifyAccessBadgeFilter verifyAccessBadgeFilter;
-    private SuperAdminCredential superAdminCredential;
-    private DefaultAccountAdminRepository defaultAccountAdminRepository;
+    private DefaultAccountIndividualRepository defaultAccountIndividualRepository;
 
     //todo transform filter to DI
     @Bean
@@ -86,41 +65,19 @@ public class SecurityConfiguration  {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authentication/super-admin/default",
-                                "/authentication/admin/default",
-                                "/authentication/candidate/default",
-                                "/authentication/candidate/google",
-                                "/authentication/candidate/google/callback",
-                                "/authentication/service/default",
+                        .requestMatchers(
+                                "/authentication/individual/default",
                                 "/authentication/refresh/token",
-                                "/account/candidate/default-method/create",
-                                "/account/candidate/default-method/activate/token/generate",
-                                "/account/candidate/default-method/activate/token/*",
-                                "/account/candidate/default-method/reset-password/token/generate",
-                                "/account/candidate/default-method/reset-password/token/*").permitAll()
+                                "/account/individual/default-method/create",
+                                "/account/individual/default-method/activate/token/*"
+                        ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
                 .cors(Customizer.withDefaults())
-                .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class) //BearerTokenAuthenticationFilter.class
-                .addFilterAfter(verifyTokenFingerprintFilter, BearerTokenAuthenticationFilter.class)
-                .addFilterAfter(verifyRevokedJwtFilter, VerifyTokenFingerprintFilter.class)
                 .build();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        configuration.setAllowedOrigins(Collections.singletonList(this.frontEndURL.url()));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedHeader("*");
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
     }
 
     @Bean
@@ -187,262 +144,55 @@ public class SecurityConfiguration  {
     }
 
     // User details service objects for refresh token authentication
-
     @Bean
-    @Instance("RefreshTokenDefaultAccountSuperAdminDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountSuperAdminRefreshToken() {
+    @Instance("RefreshTokenDefaultAccountIndividualDetails")
+    public UserDetailsService userDetailsServiceDefaultAccountIndividualRefreshToken() {
         return id -> {
-
-            if(SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT == null
-                    || SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT.isEmpty()
-                    || SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT.isBlank()){
-                throw new IdAccountNotFoundException("idAccount is null");
-            }
-
-            if (!id.equals(SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT)){
-                throw new UsernameNotFoundException("the id not found");
-            }
-
-            String[] roles;
-            String[] permissions;
-
-            roles = RoleNameCommonConstants.allAdminsAndSuperAdminRoles.toArray(new String[0]);
-            permissions = PermissionNameCommonConstants.allAdminsAndSuperAdminPermissions.toArray(new String[0]);
-
-            return SuperAdminDefaultMethod.builder()
-                    .id(SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT)
-                    .username(superAdminCredential.username())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
-    @Bean
-    @Instance("RefreshTokenDefaultAccountAdminDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountAdminRefreshToken() {
-        return id -> {
-            DefaultAccountAdmin defaultAccountAdmin;
-            Optional<DefaultAccountAdmin> optional = defaultAccountAdminRepository.findById(Long.parseLong(id));
+            DefaultAccountIndividual defaultAccountIndividual;
+            Optional<DefaultAccountIndividual> optional = defaultAccountIndividualRepository.findById(Long.parseLong(id));
             String[] roles;
             String[] permissions;
 
             if(optional.isPresent()) {
-                defaultAccountAdmin = optional.get();
+                defaultAccountIndividual = optional.get();
             } else {
                 throw new UsernameNotFoundException("User not found Exception");
             }
 
-            roles = this.convertRolesToListString(defaultAccountAdmin.getRoles());
-            permissions = this.convertPermissionsToListString(defaultAccountAdmin.getPermissions());
+            roles = this.convertRolesToListString(defaultAccountIndividual.getRoles());
+            permissions = this.convertPermissionsToListString(defaultAccountIndividual.getPermissions());
 
-            return AdminDefaultMethod.builder()
-                    .suspended(defaultAccountAdmin.isSuspended())
-                    .id(defaultAccountAdmin.getId())
-                    .email(defaultAccountAdmin.getEmail())
+            return IndividualDefaultMethod.builder()
+                    .activated(defaultAccountIndividual.isActivated())
+                    .email(defaultAccountIndividual.getEmail())
+                    .id(defaultAccountIndividual.getId())
                     .roles(roles)
                     .permissions(permissions)
                     .build();
         };
     }
-
-    @Bean
-    @Instance("RefreshTokenDefaultAccountCandidateDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountCandidateRefreshToken() {
-        return id -> {
-            DefaultAccountCandidate defaultAccountCandidate;
-            Optional<DefaultAccountCandidate> optional = defaultAccountCandidateRepository.findById(Long.parseLong(id));
-            String[] roles;
-            String[] permissions;
-
-            if(optional.isPresent()) {
-                defaultAccountCandidate = optional.get();
-            } else {
-                throw new UsernameNotFoundException("User not found Exception");
-            }
-
-            roles = this.convertRolesToListString(defaultAccountCandidate.getRoles());
-            permissions = this.convertPermissionsToListString(defaultAccountCandidate.getPermissions());
-
-            return CandidateDefaultMethod.builder()
-                    .activated(defaultAccountCandidate.isActivated())
-                    .email(defaultAccountCandidate.getEmail())
-                    .id(defaultAccountCandidate.getId())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
-    @Bean
-    @Instance("RefreshTokenGoogleAccountCandidateDetails")
-    public UserDetailsService userDetailsServiceGoogleAccountCandidateRefreshToken() {
-        return id -> {
-            GoogleAccountCandidate googleAccountCandidate;
-            Optional<GoogleAccountCandidate> optional = googleAccountCandidateRepository.findById(Long.parseLong(id));
-            String[] roles;
-            String[] permissions;
-
-            if (optional.isPresent()){
-                googleAccountCandidate = optional.get();
-            } else {
-                throw new UsernameNotFoundException("User not found Exception");
-            }
-
-            roles = this.convertRolesToListString(googleAccountCandidate.getRoles());
-            permissions = this.convertPermissionsToListString(googleAccountCandidate.getPermissions());
-
-            return CandidateGoogleMethod.builder()
-                    .email(googleAccountCandidate.getEmail())
-                    .id(googleAccountCandidate.getId())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
     // User details service objects for simple authentication
 
     @Bean
-    @Instance("DefaultAccountServiceDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountService(PasswordEncoder passwordEncoder){
-        ServiceDefaultMethod emailingService;
-        ServiceDefaultMethod userService;
-
-        emailingService = ServiceDefaultMethod.builder()
-                .id(ServiceIdCommonConstants.EMAILING_SERVICE)
-                .username(credentialEmailingService.username())
-                .password(passwordEncoder.encode(credentialEmailingService.password()))
-                .roles(RoleNameCommonConstants.SERVER, RoleNameCommonConstants.EMAILING_SERVER)
-                .permissions()
-                .build();
-
-        userService = ServiceDefaultMethod.builder()
-                .id(ServiceIdCommonConstants.USER_SERVICE)
-                .username(credentialUserService.username())
-                .password(passwordEncoder.encode(credentialUserService.password()))
-                .roles(RoleNameCommonConstants.SERVER, RoleNameCommonConstants.USER_SERVER)
-                .permissions()
-                .build();
-
-        return new InMemoryUserDetailsManagerOfServiceDefaultMethod(
-                emailingService,
-                userService
-        );
-    }
-
-    @Bean
-    @Instance("DefaultAccountSuperAdminDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountSuperAdmin(PasswordEncoder passwordEncoder) {
-        return username -> {
-
-            if(superAdminCredential.username() == null
-                    || superAdminCredential.username().isEmpty()
-                    || superAdminCredential.username().isBlank()){
-                throw new UsernameNullException("the super admin username is null");
-            }
-
-            if(superAdminCredential.password() == null
-                    || superAdminCredential.password().isBlank()
-                    || superAdminCredential.password().isEmpty()){
-                throw new PasswordNullException("the super admin password is null");
-            }
-
-            if(SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT == null
-                    || SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT.isEmpty()
-                    || SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT.isBlank()){
-                throw new IdAccountNotFoundException("idAccount is null");
-            }
-
-            if (!username.equals(superAdminCredential.username())){
-                throw new UsernameNotFoundException("the username not found");
-            }
-
-            String[] roles;
-            String[] permissions;
-
-            roles = RoleNameCommonConstants.allAdminsAndSuperAdminRoles.toArray(new String[0]);
-            permissions = PermissionNameCommonConstants.allAdminsAndSuperAdminPermissions.toArray(new String[0]);
-
-            return SuperAdminDefaultMethod.builder()
-                    .id(SuperAdminIdAccountConstants.SUPER_ADMIN_ID_ACCOUNT)
-                    .username(superAdminCredential.username())
-                    .password(passwordEncoder.encode(superAdminCredential.password()))
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
-    @Bean
-    @Instance("DefaultAccountAdminDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountAdmin() {
+    @Instance("DefaultAccountIndividualDetails")
+    public UserDetailsService userDetailsServiceDefaultAccountIndividual() {
         return email -> {
-            DefaultAccountAdmin defaultAccountAdmin = defaultAccountAdminRepository.findDefaultAccountAdminByEmail(email);
+            DefaultAccountIndividual defaultAccountIndividual = defaultAccountIndividualRepository.findDefaultAccountIndividualByEmail(email);
             String[] roles;
             String[] permissions;
 
-            if(defaultAccountAdmin == null)
-                throw new UsernameNotFoundException("User not found Exception");
-
-            roles = this.convertRolesToListString(defaultAccountAdmin.getRoles());
-            permissions = this.convertPermissionsToListString(defaultAccountAdmin.getPermissions());
-
-            return AdminDefaultMethod.builder()
-                    .suspended(defaultAccountAdmin.isSuspended())
-                    .id(defaultAccountAdmin.getId())
-                    .email(defaultAccountAdmin.getEmail())
-                    .password(defaultAccountAdmin.getPassword())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
-    @Bean
-    @Instance("DefaultAccountCandidateDetails")
-    public UserDetailsService userDetailsServiceDefaultAccountCandidate() {
-        return email -> {
-            DefaultAccountCandidate defaultAccountCandidate = defaultAccountCandidateRepository.findDefaultAccountCandidateByEmail(email);
-            String[] roles;
-            String[] permissions;
-
-            if(defaultAccountCandidate == null) {
+            if(defaultAccountIndividual == null) {
                 throw new UsernameNotFoundException("User not found Exception");
             }
 
-            roles = this.convertRolesToListString(defaultAccountCandidate.getRoles());
-            permissions = this.convertPermissionsToListString(defaultAccountCandidate.getPermissions());
+            roles = this.convertRolesToListString(defaultAccountIndividual.getRoles());
+            permissions = this.convertPermissionsToListString(defaultAccountIndividual.getPermissions());
 
-            return CandidateDefaultMethod.builder()
-                    .activated(defaultAccountCandidate.isActivated())
-                    .email(defaultAccountCandidate.getEmail())
-                    .id(defaultAccountCandidate.getId())
-                    .password(defaultAccountCandidate.getPassword())
-                    .roles(roles)
-                    .permissions(permissions)
-                    .build();
-        };
-    }
-
-    @Bean
-    @Instance("GoogleAccountCandidateDetails")
-    public UserDetailsService userDetailsServiceGoogleAccountCandidate() {
-        return email -> {
-            GoogleAccountCandidate googleAccountCandidate = googleAccountCandidateRepository.findGoogleAccountCandidateByEmail(email);
-            String[] roles;
-            String[] permissions;
-
-            if(googleAccountCandidate == null) {
-                throw new UsernameNotFoundException("User not found Exception");
-            }
-
-            roles = this.convertRolesToListString(googleAccountCandidate.getRoles());
-            permissions = this.convertPermissionsToListString(googleAccountCandidate.getPermissions());
-
-            return CandidateGoogleMethod.builder()
-                    .email(googleAccountCandidate.getEmail())
-                    .id(googleAccountCandidate.getId())
+            return IndividualDefaultMethod.builder()
+                    .activated(defaultAccountIndividual.isActivated())
+                    .email(defaultAccountIndividual.getEmail())
+                    .id(defaultAccountIndividual.getId())
+                    .password(defaultAccountIndividual.getPassword())
                     .roles(roles)
                     .permissions(permissions)
                     .build();
@@ -452,52 +202,9 @@ public class SecurityConfiguration  {
     // Authentication Manager objects
 
     @Bean
-    @Instance("DefaultAccountService")
-    public AuthenticationManager authenticationManagerDefaultAccountService(@Instance("DefaultAccountServiceDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
-
-    @Bean
-    @Instance("DefaultAccountSuperAdmin")
-    public AuthenticationManager authenticationManagerDefaultAccountSuperAdmin(@Instance("DefaultAccountSuperAdminDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-        // DaoAuthenticationProvider is used because our authentication is performing by providing just USERNAME/PASSWORD
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
-
-    @Bean
-    @Instance("DefaultAccountAdmin")
-    public AuthenticationManager authenticationManagerDefaultAccountAdmin(@Instance("DefaultAccountAdminDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-        // DaoAuthenticationProvider is used because our authentication is performing by providing just USERNAME/PASSWORD
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
-
-    @Bean
-    @Instance("DefaultAccountCandidate")
+    @Instance("DefaultAccountIndividual")
     @Primary
-    public AuthenticationManager authenticationManagerDefaultAccountCandidate(@Instance("DefaultAccountCandidateDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
-        // DaoAuthenticationProvider is used because our authentication is performing by providing just USERNAME/PASSWORD
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
-
-    @Bean
-    @Instance("GoogleAccountCandidate")
-    public AuthenticationManager authenticationManagerGoogleAccountCandidate(@Instance("GoogleAccountCandidateDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
+    public AuthenticationManager authenticationManagerDefaultAccountIndividual(@Instance("DefaultAccountIndividualDetails") UserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
         // DaoAuthenticationProvider is used because our authentication is performing by providing just USERNAME/PASSWORD
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 
@@ -519,7 +226,6 @@ public class SecurityConfiguration  {
         JwtAuthenticationProvider jwtAuthenticationProvider = new JwtAuthenticationProvider(refreshJwtDecoder);
         jwtAuthenticationProvider.setJwtAuthenticationConverter(jwtAuthenticationConverter);
         return new ProviderManager(jwtAuthenticationProvider);
-
     }
 
 

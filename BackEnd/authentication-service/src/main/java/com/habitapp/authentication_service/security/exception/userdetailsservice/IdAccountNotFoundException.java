@@ -1,4 +1,4 @@
-package com.menara.authentication.security.exception.userdetailsservice;
+package com.habitapp.authentication_service.security.exception.userdetailsservice;
 
 public class IdAccountNotFoundException extends RuntimeException {
     public IdAccountNotFoundException(String message){

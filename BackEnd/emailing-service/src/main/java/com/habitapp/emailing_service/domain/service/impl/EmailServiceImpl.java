@@ -1,6 +1,6 @@
-package com.internship_hiring_menara.emailing_service.domain.service.impl;
+package com.habitapp.emailing_service.domain.service.impl;
 
-import com.internship_hiring_menara.emailing_service.domain.service.EmailService;
+import com.habitapp.emailing_service.domain.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;

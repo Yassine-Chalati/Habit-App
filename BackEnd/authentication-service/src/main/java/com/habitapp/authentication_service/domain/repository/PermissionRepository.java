@@ -1,7 +1,7 @@
-package com.menara.authentication.domain.repository;
+package com.habitapp.authentication_service.domain.repository;
 
-import com.menara.authentication.domain.entity.Permission;
-import com.menara.authentication.domain.entity.Role;
+
+import com.habitapp.authentication_service.domain.entity.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

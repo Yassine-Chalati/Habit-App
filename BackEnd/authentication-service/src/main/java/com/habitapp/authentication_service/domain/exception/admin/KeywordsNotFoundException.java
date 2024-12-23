@@ -1,4 +1,4 @@
-package com.menara.authentication.domain.exception.admin;
+package com.habitapp.authentication_service.domain.exception.admin;
 
 public class KeywordsNotFoundException extends Exception {
     public KeywordsNotFoundException(String message){

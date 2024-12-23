@@ -1,6 +1,7 @@
-package com.menara.authentication.configuration;
+package com.habitapp.authentication_service.configuration;
 
-import com.menara.authentication.configuration.record.*;
+
+import com.habitapp.authentication_service.configuration.record.*;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -12,18 +13,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableConfigurationProperties({
         AccessTokenRsaKeysConfig.class,
         RefreshTokenRsaKeysConfig.class,
-        AccessBadge.class,
-        FrontEndURL.class,
         DurationOfGeneratedToken.class,
-        UrlDelegateService.class,
-        CredentialEmailingService.class,
         JwtClaim.class,
-        CookiesAttributesValues.class,
-        GoogleOAuth2Credential.class,
         DurationResendUrl.class,
         HttpResponseTime.class,
-        SuperAdminCredential.class,
-        CredentialUserService.class
+        UrlDelegateService.class
 })
 public class MainConfiguration {
 }

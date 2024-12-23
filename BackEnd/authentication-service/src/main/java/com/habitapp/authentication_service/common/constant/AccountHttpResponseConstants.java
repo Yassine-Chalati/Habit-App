@@ -1,4 +1,4 @@
-package com.menara.authentication.common.constant;
+package com.habitapp.authentication_service.common.constant;
 
 public class AccountHttpResponseConstants {
     public static final String EMAIL_PATTERN_NOT_VALID = "The pattern of your email is not valid";

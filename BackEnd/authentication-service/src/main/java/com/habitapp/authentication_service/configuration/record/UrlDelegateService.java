@@ -1,4 +1,4 @@
-package com.menara.authentication.configuration.record;
+package com.habitapp.authentication_service.configuration.record;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package com.menara.authentication.domain.exception.account;
+package com.habitapp.authentication_service.domain.exception.account;
 
 public class VerificationTokensNotEqualsException extends Exception{
     public VerificationTokensNotEqualsException(String message){

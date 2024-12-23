@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: emailing-service
+  profiles:
+    active: ${PROFILES}
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-service
+      fail-fast: true
+      retry:
+        max-attempts: 10
+      label: ${GIT_BRANCH}
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 7
+  client:
+    refresh:
+      enable: false
+    service-url:
+      defaultZone: ${HTTP}://${BASIC_AUTH_EUREKA}${DNS}/eureka/

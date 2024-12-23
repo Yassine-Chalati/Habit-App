@@ -1,4 +1,4 @@
-package com.menara.authentication.proxy.exception.common;
+package com.habitapp.authentication_service.proxy.exception.common;
 
 public class UnprocessableEntityException extends Exception {
     public UnprocessableEntityException(String message){

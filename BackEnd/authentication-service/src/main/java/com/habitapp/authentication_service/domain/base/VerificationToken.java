@@ -1,6 +1,6 @@
-package com.menara.authentication.domain.base;
+package com.habitapp.authentication_service.domain.base;
 
-import com.menara.authentication.domain.entity.DefaultAccountCandidate;
+import com.habitapp.authentication_service.domain.entity.DefaultAccountIndividual;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,11 +19,11 @@ public abstract class VerificationToken {
     private String token;
     private LocalDateTime creationDate;
     @OneToOne
-    private DefaultAccountCandidate candidate;
+    private DefaultAccountIndividual individual;
 
-    public VerificationToken(String token, LocalDateTime creationDate, DefaultAccountCandidate candidate) {
+    public VerificationToken(String token, LocalDateTime creationDate, DefaultAccountIndividual individual) {
         this.token = token;
         this.creationDate = creationDate;
-        this.candidate = candidate;
+        this.individual = individual;
     }
 }

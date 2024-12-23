@@ -1,6 +1,7 @@
-package com.menara.authentication.common.utlil.converter;
+package com.habitapp.authentication_service.common.utlil.converter;
 
-import com.menara.authentication.annotation.Util;
+
+import com.habitapp.authentication_service.annotation.Util;
 
 @Util
 public class ConverterUtil {

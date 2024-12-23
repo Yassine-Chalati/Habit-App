@@ -1,4 +1,4 @@
-package com.internship_hiring_menara.emailing_service.dto.activate.account;
+package com.habitapp.emailing_service.dto.activate.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

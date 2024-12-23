@@ -1,8 +1,11 @@
-package com.menara.authentication.domain.entity;
+package com.habitapp.authentication_service.domain.entity;
 
-import com.menara.authentication.domain.base.VerificationToken;
+import com.habitapp.authentication_service.domain.base.VerificationToken;
 import jakarta.persistence.Entity;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class ActivationAccountVerificationToken extends VerificationToken {
-    public ActivationAccountVerificationToken(String token, LocalDateTime creationDate, DefaultAccountCandidate candidate){
-        super(token, creationDate, candidate);
+    public ActivationAccountVerificationToken(String token, LocalDateTime creationDate, DefaultAccountIndividual individual){
+        super(token, creationDate, individual);
     }
 }

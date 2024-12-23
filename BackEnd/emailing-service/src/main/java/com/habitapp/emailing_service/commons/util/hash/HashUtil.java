@@ -1,7 +1,7 @@
-package com.internship_hiring_menara.emailing_service.commons.util.hash;
+package com.habitapp.emailing_service.commons.util.hash;
 
-import com.internship_hiring_menara.emailing_service.annotation.Util;
-import com.internship_hiring_menara.emailing_service.commons.util.converter.ConverterUtil;
+import com.habitapp.emailing_service.annotation.Util;
+import com.habitapp.emailing_service.commons.util.converter.ConverterUtil;
 import lombok.AllArgsConstructor;
 
 import java.security.MessageDigest;

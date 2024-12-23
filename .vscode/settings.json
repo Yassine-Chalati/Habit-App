@@ -3,5 +3,6 @@
     "sonarlint.connectedMode.project": {
         "connectionId": "http-77-37-86-136-9000",
         "projectKey": "Habit-App"
-    }
+    },
+    "liveServer.settings.port": 5501
 }

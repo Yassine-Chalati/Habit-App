@@ -1,7 +1,8 @@
-package com.menara.authentication.common.utlil.generator.random.token;
+package com.habitapp.authentication_service.common.utlil.generator.random.token;
 
-import com.menara.authentication.annotation.Util;
-import com.menara.authentication.common.utlil.cryptography.hash.HashUtil;
+
+import com.habitapp.authentication_service.annotation.Util;
+import com.habitapp.authentication_service.common.utlil.cryptography.hash.HashUtil;
 import lombok.AllArgsConstructor;
 
 import java.security.SecureRandom;

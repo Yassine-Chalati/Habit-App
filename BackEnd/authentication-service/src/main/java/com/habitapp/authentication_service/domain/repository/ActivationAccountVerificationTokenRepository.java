@@ -1,8 +1,6 @@
-package com.menara.authentication.domain.repository;
+package com.habitapp.authentication_service.domain.repository;
 
-import com.menara.authentication.domain.entity.ActivationAccountVerificationToken;
-import com.menara.authentication.domain.entity.DefaultAccountCandidate;
-import com.menara.authentication.domain.base.VerificationToken;
+import com.habitapp.authentication_service.domain.entity.ActivationAccountVerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

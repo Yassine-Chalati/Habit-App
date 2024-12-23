@@ -25,14 +25,17 @@
 	</properties>
 
 	<modules>
+		<module>authentication-service</module>
 		<module>registry-service</module>
 		<module>config-service</module>
 		<module>gateway-service</module>
-		<module>habit-service</module>
-		<module>notification-service</module>
+		<module>profile-service</module>
+		<!-- <module>habit-service</module> -->
 		<module>progress-service</module>
-		<module>motivation-service</module>
-		<module>reward-service</module>
+		<module>emailing-service</module>
+<!--		<module>notification-service</module>-->
+<!--		<module>motivation-service</module>-->
+<!--		<module>reward-service</module>-->
 	</modules>
 
 	<dependencies>
@@ -169,7 +172,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
-				<version>4.0.0.4121</version> <!-- Choose the appropriate version -->
+				<version>4.0.0.4121</version>
 			</plugin>
 		</plugins>
 	</build>

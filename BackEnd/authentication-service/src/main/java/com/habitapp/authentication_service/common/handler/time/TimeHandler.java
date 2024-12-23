@@ -1,4 +1,4 @@
-package com.menara.authentication.common.handler.time;
+package com.habitapp.authentication_service.common.handler.time;
 
 import java.util.concurrent.TimeUnit;
 
