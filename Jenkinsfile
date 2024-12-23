@@ -124,33 +124,33 @@ mvn validate sonar:sonar -e  -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'
         echo 'Deploy Phase'
         sh '''cd BackEnd
 
-docker stop profile-service
-docker rm profile-service
-docker rmi profile-service
+docker stop profile-service || true
+docker rm profile-service || true
+docker rmi profile-service || true
 
-docker stop authentication-service
-docker rm authentication-service
-docker rmi authentication-service
+docker stop authentication-service || true
+docker rm authentication-service || true
+docker rmi authentication-service || true
 
-docker stop emailing-service
-docker rm emailing-service
-docker rmi emailing-service
+docker stop emailing-service || true
+docker rm emailing-service || true
+docker rmi emailing-service || true
 
-docker stop gateway-service
-docker rm gateway-service
-docker rmi gateway-service
+docker stop gateway-service || true
+docker rm gateway-service || true
+docker rmi gateway-service || true
 
-docker stop config-service
-docker rm config-service
-docker rmi config-service
+docker stop config-service || true
+docker rm config-service || true
+docker rmi config-service || true
 
-docker stop mysql
-docker rm mysql
-docker rmi mysql
+docker stop mysql || true
+docker rm mysql || true
+docker rmi mysql || true
 
-docker stop registry-service
-docker rm registry-service
-docker rmi registry-service
+docker stop registry-service || true
+docker rm registry-service || true
+docker rmi registry-service || true
 
 docker compose up -d'''
       }
