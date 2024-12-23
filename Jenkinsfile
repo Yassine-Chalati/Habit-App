@@ -126,24 +126,31 @@ mvn validate sonar:sonar -e  -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'
 
 docker stop profile-service
 docker rm profile-service
+docker rmi profile-service
 
 docker stop authentication-service
 docker rm authentication-service
+docker rmi authentication-service
 
 docker stop emailing-service
 docker rm emailing-service
+docker rmi emailing-service
 
 docker stop gateway-service
 docker rm gateway-service
+docker rmi gateway-service
 
 docker stop config-service
 docker rm config-service
+docker rmi config-service
 
 docker stop mysql
 docker rm mysql
+docker rmi mysql
 
 docker stop registry-service
 docker rm registry-service
+docker rmi registry-service
 
 docker compose up -d'''
       }
