@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "profile-service", contextId = "individual", configuration = IndividualConfiguration.class)
+@FeignClient(name = "profile-service", configuration = IndividualConfiguration.class)
 public interface IndividualClient {
     @PostMapping("/api/individuals")
     ResponseEntity<Void> createIndividual(@RequestBody IndividualRequestResponseHttp individual);

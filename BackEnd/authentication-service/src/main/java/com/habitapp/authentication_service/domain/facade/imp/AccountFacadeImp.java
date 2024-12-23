@@ -29,7 +29,7 @@ public class AccountFacadeImp implements AccountFacade {
 
     public void createIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws EmailPatternNotValidException, PasswordPatternNotValidException, EmailNotFoundException, PasswordNotFoundException, UrlConfigurationNotFoundException, AccountAlreadyExistsException, RoleNotFoundException, RolePrefixException, RoleNotDefinedException, AccountNotCreatedException, PermissionPrefixException, PermissionNotDefinedException, UnexpectedException, UnauthorizedException, UnprocessableEntityException, ForbiddenException, InternalServerErrorException {
         AccountIdAndEmailAndActivationURLDTO accountIdAndEmailAndActivationURLDTO = accountService.createIndividualAccountWithDefaultMethod(account);
-        individualServiceProxy.createIndividual(new IndividualRequestResponseHttp(0, account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate()));
+        individualServiceProxy.createIndividual(new IndividualRequestResponseHttp(accountIdAndEmailAndActivationURLDTO.getIdAccount(), account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate(), account.getPassword()));
         emailServiceProxy.sendURLActivationAccount(new EmailAndUrlDTO(accountIdAndEmailAndActivationURLDTO.getEmail(), accountIdAndEmailAndActivationURLDTO.getActivationURL()));
     }
     @Override
@@ -59,6 +59,6 @@ public class AccountFacadeImp implements AccountFacade {
     @Override
     public void updateIndividualAccountWithDefaultMethod(AccountAndInformationDTO account) throws PasswordPatternNotValidException, PasswordNotFoundException, AccountNotFoundException, UnexpectedException, UnauthorizedException {
         accountService.updatePasswordIndividualAccountWithDefaultMethod(account);
-        individualServiceProxy.updateIndividual(account.getIdAccount(), new IndividualRequestResponseHttp(account.getIdAccount(), account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate()));
+        individualServiceProxy.updateIndividual(account.getIdAccount(), new IndividualRequestResponseHttp(account.getIdAccount(), account.getFirstName(), account.getLastName(), account.getEmail(), account.getGender(), account.getBirthDate(), ""));
     }
 }

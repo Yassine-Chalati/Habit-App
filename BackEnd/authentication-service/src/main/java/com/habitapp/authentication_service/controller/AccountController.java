@@ -8,6 +8,7 @@ import com.habitapp.authentication_service.domain.exception.account.*;
 import com.habitapp.authentication_service.domain.facade.AccountFacade;
 import com.habitapp.authentication_service.domain.facade.AuthenticationFacade;
 import com.habitapp.authentication_service.domain.facade.EmailFacade;
+import com.habitapp.authentication_service.domain.facade.IndividualFacade;
 import com.habitapp.authentication_service.dto.account.AccountAndInformationDTO;
 import com.habitapp.authentication_service.dto.account.AccountEmailAndActivationTokenDTO;
 import com.habitapp.authentication_service.dto.jwt.AccessTokenAndRefreshTokenDTO;
@@ -19,6 +20,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +31,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountController {
     private AccountFacade accountFacade;
-    private EmailFacade emailFacade;
+    private IndividualFacade individualFacade;
     private AuthenticationFacade authenticationFacade;
     private JwtClaim jwtClaim;
     private HttpResponseTime responseTime;
@@ -44,7 +47,7 @@ public class AccountController {
 
         try {
             accountFacade.createIndividualAccountWithDefaultMethod(account);
-            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
         } catch (PasswordNotFoundException e) {
             System.out.println(e.getMessage());
             timeHandler.timingEqualization();
@@ -80,7 +83,64 @@ public class AccountController {
             timeHandler.timingEqualization();
             return new ResponseEntity<>(AccountHttpResponseConstants.PASSWORD_PATTERN_NOT_VALID, httpHeaders, HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            System.out.println(e.getMessage() + " ");
+            e.printStackTrace();
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(AccountHttpResponseConstants.ERROR_AT_CREATION_ACCOUNT, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @GetMapping("/individual/default-method/read")
+    public ResponseEntity<?>  readIndividualAccountWithDefaultMethod(@AuthenticationPrincipal Jwt jwt){
+        TimeHandler timeHandler = new TimeHandler(responseTime.responseTimeWithoutDispatching());
+        timeHandler.start();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        AccountAndInformationDTO account = new AccountAndInformationDTO();
+        account.setIdAccount(Long.parseLong(jwt.getSubject()));
+
+        try {
+            IndividualRequestResponseHttp individualRequestResponseHttp = individualFacade.readIndividualAccountWithDefaultMethod(Long.parseLong(jwt.getSubject()));
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(individualRequestResponseHttp, httpHeaders, HttpStatus.OK);
+        } catch (AccountNotFoundException e) {
             System.out.println(e.getMessage());
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(httpHeaders, HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/individual/default-method/update")
+    public ResponseEntity<String> updateIndividualAccountWithDefaultMethod(@RequestBody IndividualRequestResponseHttp accountRequestHttp,@AuthenticationPrincipal Jwt jwt){
+        TimeHandler timeHandler = new TimeHandler(responseTime.responseTimeWithDispatching());
+        timeHandler.start();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        AccountAndInformationDTO account = mapIndividualRequestResponseHttpToAccountAndInformationDTO(accountRequestHttp);
+        account.setIdAccount(Long.parseLong(jwt.getSubject()));
+
+        try {
+            accountFacade.updateIndividualAccountWithDefaultMethod(account);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        } catch (PasswordNotFoundException e) {
+            System.out.println(e.getMessage());
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(AccountHttpResponseConstants.PASSWORD_NOT_FOUND, httpHeaders, HttpStatus.BAD_REQUEST);
+        } catch (UnexpectedException |
+                 UnauthorizedException e) {
+            System.out.println(e.getMessage());
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(AccountHttpResponseConstants.ERROR_AT_CREATION_ACCOUNT, httpHeaders, HttpStatus.BAD_REQUEST);
+        } catch (PasswordPatternNotValidException e) {
+            System.out.println(e.getMessage());
+            timeHandler.timingEqualization();
+            return new ResponseEntity<>(AccountHttpResponseConstants.PASSWORD_PATTERN_NOT_VALID, httpHeaders, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + " ");
+            e.printStackTrace();
             timeHandler.timingEqualization();
             return new ResponseEntity<>(AccountHttpResponseConstants.ERROR_AT_CREATION_ACCOUNT, httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -117,6 +177,7 @@ public class AccountController {
         individual.setEmail(individualRequestResponseHttp.getEmail());
         individual.setBirthDate(individualRequestResponseHttp.getBirthdate());
         individual.setGender(individualRequestResponseHttp.getGender());
+        individual.setPassword(individualRequestResponseHttp.getPassword());
 
         return individual;
     }

@@ -13,6 +13,6 @@ public class EmailingConfiguration {
     @Bean
     public RequestInterceptor requestInterceptorEmailing(){
         return template -> template
-                .header("");
+                .header("testheader", "testheadervalue");
     }
 }

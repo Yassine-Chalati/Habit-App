@@ -31,7 +31,7 @@ public class SecurityConfiguration {
         return httpSecurity
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest()
-                        .authenticated()
+                        .permitAll()
                 )
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

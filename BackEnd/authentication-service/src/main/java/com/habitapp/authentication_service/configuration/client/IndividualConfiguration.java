@@ -14,6 +14,6 @@ public class IndividualConfiguration {
     @Bean
     public RequestInterceptor requestInterceptorUser(){
         return template -> template
-                .header("");
+                .header("testheader", "testheadervalue");
     }
 }

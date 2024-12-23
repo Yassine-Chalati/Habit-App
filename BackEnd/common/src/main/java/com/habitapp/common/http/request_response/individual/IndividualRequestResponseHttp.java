@@ -16,4 +16,5 @@ public class IndividualRequestResponseHttp {
     private String email;
     private String gender;
     private LocalDate birthdate;
+    private String password;
 }
