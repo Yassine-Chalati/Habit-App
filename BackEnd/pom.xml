@@ -31,7 +31,7 @@
 		<module>gateway-service</module>
 		<module>profile-service</module>
 		<!-- <module>habit-service</module> -->
-		<!-- <module>progress-service</module> -->
+		<module>progress-service</module>
 		<module>emailing-service</module>
 <!--		<module>notification-service</module>-->
 <!--		<module>motivation-service</module>-->
