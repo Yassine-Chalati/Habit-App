@@ -1,36 +1,19 @@
 pipeline {
   agent any
   stages {
-    stage('Build BackEnd') {
-      parallel {
-        stage('Backend Validate Phase') {
-          steps {
-            sh '''cd BackEnd/common
+    stage('Backend Validate Phase') {
+      steps {
+        sh '''cd BackEnd/common
 export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn -v
 mvn install'''
-            sh '''cd BackEnd
+        sh '''cd BackEnd
 export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn clean'''
-            echo 'Validate Phase'
-            sh '''cd BackEnd
+        echo 'Validate Phase'
+        sh '''cd BackEnd
 export JAVA_HOME=/opt/java/jdk-21.0.5
 mvn validate'''
-          }
-        }
-
-        stage('Build FrontEnd') {
-          steps {
-            echo 'Hello'
-          }
-        }
-
-        stage('Build Mobile') {
-          steps {
-            echo 'Hello'
-          }
-        }
-
       }
     }
 
@@ -133,13 +116,35 @@ mvn validate sonar:sonar -e  -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'
       }
     }
 
-    stage('Backend Deploy Phase') {
+    stage('Deploy Phase') {
       when {
         branch 'main'
       }
       steps {
         echo 'Deploy Phase'
         sh '''cd BackEnd
+
+docker stop profile-service
+docker rm profile-service
+
+docker stop authentication-service
+docker rm authentication-service
+
+docker stop emailing-service
+docker rm emailing-service
+
+docker stop gateway-service
+docker rm gateway-service
+
+docker stop config-service
+docker rm config-service
+
+docker stop mysql
+docker rm mysql
+
+docker stop registry-service
+docker rm registry-service
+
 docker compose up -d'''
       }
     }
