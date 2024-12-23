@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 
-import com.habitapp.gateway_service.configuration.record.AccessBadge;
-
 @SpringBootTest
 class ConfigurationRouteLocatorIT {
     @Autowired

@@ -12,6 +12,6 @@ ARG JAR_FILE
 
 VOLUME /tmp
 
-COPY target/${JAR_FILE} profile-service.jar
+COPY target/${JAR_FILE} progress-service.jar
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/profile-service.jar" ]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/progress-service.jar" ]

@@ -4,10 +4,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
-import com.habitapp.gateway_service.configuration.record.AccessBadge;
-
 @Configuration
-@EnableConfigurationProperties({AccessBadge.class})
+@EnableConfigurationProperties({})
 @Order(1)
 public class MainConfiguration {
 }
