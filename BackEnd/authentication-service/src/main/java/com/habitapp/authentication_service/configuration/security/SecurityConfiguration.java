@@ -70,7 +70,8 @@ public class SecurityConfiguration  {
                                 "/authentication/refresh/token",
                                 "/account/individual/default-method/create",
                                 "/account/individual/default-method/activate/token/*",
-                                "/swagger-ui/index.html"
+                                "/swagger-ui/*",
+                                "/swagger-ui.html"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess
