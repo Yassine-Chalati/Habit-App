@@ -98,6 +98,60 @@ services:
     networks:
       - habit-app
 
+  authentication-service:
+    hostname: authentication-service
+    build:
+      context: ./authentication-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=authentication-service-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - gateway-service
+    image: authentication-service
+    container_name: authentication-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - 8011:8011
+    networks:
+      - habit-app
+
+  profile-service:
+    hostname: profile-service
+    build:
+      context: ./profile-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=profile-service-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - gateway-service
+    image: profile-service
+    container_name: profile-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - 8012:8012
+    networks:
+      - habit-app
+
+  emailing-service:
+    hostname: emailing-service
+    build:
+      context: ./emailing-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=emailing-service-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - gateway-service
+    image: emailing-service
+    container_name: emailing-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - 8013:8013
+    networks:
+      - habit-app
+
 
 volumes:
   mysql-data:
