@@ -129,7 +129,7 @@ source environment-variable.sh
 cd ..
 
 cd ..
-mvn validate sonar:sonar -e -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000  -Dsonar.token=sqp_6b67b57bf6488b0719cea05713d7b3cea72e8be5 -Dsonar.qualitygate.wait=true'''
+mvn validate sonar:sonar -e  -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'Habit-App\'  -Dsonar.host.url=http://77.37.86.136:9000  -Dsonar.token=sqp_24d7a14a618d9abc4d04b3fa5e1e7cb4812fa7d8'''
       }
     }
 
