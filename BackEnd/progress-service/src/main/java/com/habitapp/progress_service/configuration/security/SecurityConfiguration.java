@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 // .oauth2ResourceServer(oauth2 -> oauth2
                 // .jwt(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
                 // .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class)
                 // .addFilterAfter(verifyTokenFingerprintFilter, BearerTokenAuthenticationFilter.class)
                 // .addFilterAfter(verifyRevokedJwtFilter, VerifyTokenFingerprintFilter.class)

@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                     .jwt(Customizer.withDefaults())
                 )
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .build();
     }
 
