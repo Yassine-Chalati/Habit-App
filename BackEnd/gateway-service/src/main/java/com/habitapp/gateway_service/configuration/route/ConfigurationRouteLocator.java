@@ -29,7 +29,7 @@ public class ConfigurationRouteLocator {
                                 .path("/habit/**")
                                 .uri("lb://habit-service"))
                         .route("emailing-service",r -> r
-                                .path("/emailing/**")
+                                .path("/email/**")
                                 .uri("lb://emailing-service"))
                         .build();
         }
