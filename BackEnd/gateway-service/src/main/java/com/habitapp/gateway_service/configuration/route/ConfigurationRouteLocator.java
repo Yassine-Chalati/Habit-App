@@ -17,7 +17,7 @@ public class ConfigurationRouteLocator {
         public RouteLocator customRouteLocator(RouteLocatorBuilder routeLocatorBuilder){
                 return routeLocatorBuilder.routes()
                         .route("authentication-service",r -> r
-                                .path("/authentication/**")
+                                .path("/authentication/**", "/account/**")
                                 .uri("lb://authentication-service"))
                         .route("profile-service",r -> r
                                 .path("/api/individuals/**")
