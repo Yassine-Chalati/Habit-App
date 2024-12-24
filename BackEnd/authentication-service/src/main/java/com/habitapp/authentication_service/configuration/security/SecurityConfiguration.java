@@ -64,6 +64,7 @@ public class SecurityConfiguration  {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/authentication/individual/default",
@@ -78,7 +79,6 @@ public class SecurityConfiguration  {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
-                .cors(Customizer.withDefaults())
                 .build();
     }
 
