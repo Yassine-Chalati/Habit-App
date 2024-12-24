@@ -1,6 +1,5 @@
 package com.habitapp.authentication_service.domain.service.imp;
 
-
 import com.habitapp.authentication_service.annotation.Instance;
 import com.habitapp.authentication_service.common.constant.JwtClaimsConstants;
 import com.habitapp.authentication_service.common.utlil.generator.id.GenerateUniqueIdUtil;
