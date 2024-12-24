@@ -13,6 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -42,11 +47,25 @@ public class SecurityConfiguration {
                 // .oauth2ResourceServer(oauth2 -> oauth2
                 // .jwt(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 // .addFilterBefore(verifyAccessBadgeFilter, DisableEncodeUrlFilter.class)
                 // .addFilterAfter(verifyTokenFingerprintFilter, BearerTokenAuthenticationFilter.class)
                 // .addFilterAfter(verifyRevokedJwtFilter, VerifyTokenFingerprintFilter.class)
                 .build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Collections.singletonList("*"));
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedHeader("*");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     // @Bean
