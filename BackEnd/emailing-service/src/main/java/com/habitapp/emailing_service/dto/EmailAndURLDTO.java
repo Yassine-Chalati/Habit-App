@@ -1,4 +1,4 @@
-package com.habitapp.emailing_service.dto.activate.account;
+package com.habitapp.emailing_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

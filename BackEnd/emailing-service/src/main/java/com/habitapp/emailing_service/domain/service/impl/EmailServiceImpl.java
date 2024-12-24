@@ -1,8 +1,13 @@
 package com.habitapp.emailing_service.domain.service.impl;
 
 import com.habitapp.emailing_service.domain.service.EmailService;
+import jakarta.activation.DataHandler;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.util.ByteArrayDataSource;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +41,33 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(email);
             helper.setSubject(subject);
             helper.setText(templateEngine.process(templateHTML, context), true);
+
+            javaMailSender.send(message);
+        } catch (MessagingException | MailSendException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean sendEmailWithPDF(String email, String subject, byte[] pdfBytes, String fileName) {
+        MimeMessage message = this.javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = null;
+
+        try {
+            helper = new MimeMessageHelper(message, true);
+            helper.setTo(email);
+            helper.setSubject(subject);
+
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            ByteArrayDataSource dataSource = new ByteArrayDataSource(pdfBytes, "application/pdf");
+            attachmentPart.setDataHandler(new DataHandler(dataSource));
+            attachmentPart.setFileName(fileName);
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(attachmentPart);
+            message.setContent(multipart);
 
             javaMailSender.send(message);
         } catch (MessagingException | MailSendException e) {

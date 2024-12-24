@@ -16,4 +16,9 @@ public class EmailFacadeImp implements EmailFacade {
     public boolean sendEmail(String email, String templateHTML, String subject, Map<String, Object> templateVariables) {
         return emailService.sendEmail(email, templateHTML, subject, templateVariables);
     }
+
+    @Override
+    public boolean sendEmailWithPDF(String email, String subject, byte[] pdfBytes, String fileName) {
+        return emailService.sendEmailWithPDF(email, subject, pdfBytes, fileName);
+    }
 }
