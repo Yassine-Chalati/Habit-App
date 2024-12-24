@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                     .jwt(Customizer.withDefaults())
                 )
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .build();
     }
 
