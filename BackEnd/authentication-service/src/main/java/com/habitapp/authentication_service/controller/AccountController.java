@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://77.37.86.136:4200")
 public class AccountController {
     private AccountFacade accountFacade;
     private IndividualFacade individualFacade;
