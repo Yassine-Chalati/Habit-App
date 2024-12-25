@@ -1,12 +1,33 @@
 global:
-  scrape_interval: 1m
+  scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus'
-    scrape_interval: 1m
+  - job_name: 'registry-service'
+    scrape_interval: 15s
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['localhost:8000']
 
-  - job_name: 'node'
+  - job_name: 'config-service'
+    scrape_interval: 15s
     static_configs:
-      - targets: ['node-exporter:9100']
+      - targets: ['config-service:8001']
+
+  - job_name: 'gateway-service'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['gateway-service:8002']
+
+  - job_name: 'emailing-service'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['emailing-service:8013']
+
+  - job_name: 'profile-service'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['profile-service:8012']
+
+  - job_name: 'authentication-service'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['authentication-service:8011']
