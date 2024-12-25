@@ -11,7 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/individuals")
-@CrossOrigin(origins = "http://77.37.86.136:4200")
+@CrossOrigin(origins = {"http://77.37.86.136:4200", "http://77.37.86.136:8002"})
 public class IndividualController {
 
     private final IndividualService individualService;
