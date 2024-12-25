@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/email")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class EmailController {
     private EmailFacade emailFacade;
 

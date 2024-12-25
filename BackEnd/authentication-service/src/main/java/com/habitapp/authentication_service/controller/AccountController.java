@@ -29,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class AccountController {
     private AccountFacade accountFacade;
     private IndividualFacade individualFacade;
