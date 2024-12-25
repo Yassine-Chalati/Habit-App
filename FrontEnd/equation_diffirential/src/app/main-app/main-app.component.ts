@@ -559,7 +559,7 @@ export class MainAppComponent implements AfterViewInit, OnDestroy {
       x_end: this.xEnd,
     };
 
-    this.http.post<ODEResponse>('http://localhost:5000/solve-ode', payload)
+    this.http.post<ODEResponse>('http://77.37.86.136:5000/solve-ode', payload)
       .subscribe({
         next: (response) => {
           this.solution = response.solution;
