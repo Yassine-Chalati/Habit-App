@@ -124,6 +124,14 @@ mvn validate sonar:sonar -e  -Dsonar.projectKey=HabitApp  -Dsonar.projectName=\'
         echo 'Deploy Phase'
         sh '''cd BackEnd
 
+docker stop grafana || true
+docker rm grafana || true
+docker rmi grafana/grafana || true
+
+docker stop prometheus || true
+docker rm prometheus || true
+docker rmi prom/prometheus || true
+
 docker stop profile-service || true
 docker rm profile-service || true
 docker rmi profile-service || true
@@ -146,7 +154,7 @@ docker rmi config-service || true
 
 docker stop mysql || true
 docker rm mysql || true
-docker rmi mysql || true
+docker rmi mysql:8.0 || true
 
 docker stop registry-service || true
 docker rm registry-service || true
