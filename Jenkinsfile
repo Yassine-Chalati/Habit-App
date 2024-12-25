@@ -153,6 +153,17 @@ docker rm registry-service || true
 docker rmi registry-service || true
 
 docker compose up -d'''
+        echo 'deplot equation diffirential frontEnd'
+        sh '''cd FrontEnd
+cd equation_diffirential
+
+docker stop frontend-equation-diffirential || true
+docker rm frontend-equation-diffirential || true
+docker rmi frontend-equation-diffirential || true
+
+docker build -t frontend-equation-diffirential .
+
+docker run -d -p 4200:4200 --name frontend-equation-diffirential frontend-equation-diffirential'''
       }
     }
 
