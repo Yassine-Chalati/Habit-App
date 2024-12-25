@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/email")
 @AllArgsConstructor
-@CrossOrigin(origins = "http://77.37.86.136:4200")
+@CrossOrigin(origins = {"http://77.37.86.136:4200", "http://77.37.86.136:8002"})
 public class EmailController {
     private EmailFacade emailFacade;
 

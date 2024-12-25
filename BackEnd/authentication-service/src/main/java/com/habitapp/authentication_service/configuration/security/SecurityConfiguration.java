@@ -74,9 +74,9 @@ public class SecurityConfiguration  {
                                 "/authentication/refresh/token",
                                 "/account/individual/default-method/create",
                                 "/account/individual/default-method/activate/token/*",
-                                "/swagger-ui/**",
+                                "/swagger-ui/*",
                                 "/swagger-ui.html",
-                                "/actuator/**"
+                                "/actuator/*"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sess -> sess

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/authentication")
 @AllArgsConstructor
+@CrossOrigin(origins = {"http://77.37.86.136:4200", "http://77.37.86.136:8002"})
 public class AuthenticationController {
     private final AuthenticationFacade authenticationFacade;
     private JwtClaim jwtClaim;
