@@ -11,6 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/individuals")
+@CrossOrigin(origins = "*")
 public class IndividualController {
 
     private final IndividualService individualService;
