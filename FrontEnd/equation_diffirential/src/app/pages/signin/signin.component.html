@@ -1,0 +1,31 @@
+<div class="signin-background">
+  <div class="green-shapes"></div>
+  <div class="signin-container">
+    <div class="signin-left">
+      <div class="signin-header">
+        <h1>DIFFERENTIAL EQUATIONS SOLVER</h1>
+      </div>
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <i class="fas fa-envelope icon"></i>
+          <input type="email" formControlName="email" placeholder="Email" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock icon"></i>
+          <input [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Password" required />
+          <i class="fas fa-eye eye-icon" (click)="togglePasswordVisibility()"></i>
+        </div>
+        <button type="submit" class="signin-btn">Sign In</button>
+        <p class="register-link">
+          Don't have an account? <a routerLink="/signup">Join Today</a>
+        </p>
+      </form>
+    </div>
+    <div class="signin-right">
+      <div class="signin-overlay">
+        <h1>AI-POWERED SOLVER</h1>
+        <p>Solve first and second-order differential equations effortlessly with AI.</p>
+      </div>
+    </div>
+  </div>
+</div>

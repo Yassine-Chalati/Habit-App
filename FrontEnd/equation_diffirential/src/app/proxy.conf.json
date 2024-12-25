@@ -1,0 +1,8 @@
+{
+    "/account": {
+      "target": "http://77.37.86.136:8011",  
+      "secure": false,                     
+      "changeOrigin": true                  
+    }
+  }
+  
