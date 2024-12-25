@@ -166,7 +166,7 @@ docker build -t frontend-equation-diffirential .
 docker run -d -p 4200:4200 --name frontend-equation-diffirential frontend-equation-diffirential'''
         echo 'deploy model AI'
         sh '''cd AiModel
-cd SolveEquationDifferentia
+cd SolveEquationDifferential
 
 docker stop ai-model-equation-diffirential || true
 docker rm ai-model-equation-diffirential || true
