@@ -9,7 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@MappedSuperclass
+@Entity
 public class Quote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
