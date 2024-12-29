@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Remainder {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @OneToMany(mappedBy = "remainder")
