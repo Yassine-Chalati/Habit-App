@@ -16,7 +16,4 @@ public class Remainder {
     @Id
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-
-    @OneToMany(mappedBy = "remainder")
-    private List<Habit> habits;
 }

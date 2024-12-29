@@ -29,21 +29,21 @@ public class ChartController {
         }
     }
 
-    @GetMapping("/area/read")
+    @PostMapping("/area/read")
     public ResponseEntity<?> getAreaChart(@RequestBody Long idUser) {
         try {
             List<AreaChart> areaCharts = chartService.readAreaChart(idUser, LocalDate.now().minusWeeks(7), LocalDate.now());
-            return new ResponseEntity<>(areaCharts, HttpStatus.OK);
+            return new ResponseEntity<List<AreaChart>>(areaCharts, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/column/read")
+    @PostMapping("/column/read")
     public ResponseEntity<?> getColumnChart(@RequestBody Long idUser) {
         try {
             List<ColumnChart> columnCharts = chartService.readColumnChart(idUser, LocalDate.now().minusWeeks(7), LocalDate.now());
-            return new ResponseEntity<>(columnCharts, HttpStatus.OK);
+            return new ResponseEntity<List<ColumnChart>>(columnCharts, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

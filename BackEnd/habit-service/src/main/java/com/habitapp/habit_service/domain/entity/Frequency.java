@@ -15,7 +15,4 @@ import java.util.List;
 public class Frequency {
     @EmbeddedId
     private FrequencyEmbeddedId id;
-
-    @OneToMany(mappedBy = "frequency")
-    private List<Habit> habits;
 }
