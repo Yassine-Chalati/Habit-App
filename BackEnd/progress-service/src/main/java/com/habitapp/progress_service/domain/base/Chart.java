@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Chart {
 
     private Long idUser;
 
-    private Date date;
+    private LocalDate date;
 
     private int numberCheckedHabit;
 }

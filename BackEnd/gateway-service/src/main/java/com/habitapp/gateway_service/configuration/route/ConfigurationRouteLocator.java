@@ -23,7 +23,7 @@ public class ConfigurationRouteLocator {
                                 .path("/api/individuals/**")
                                 .uri("lb://profile-service"))
                         .route("progress-service",r -> r
-                                .path("/progress/**")
+                                .path("/progress/**", "/reward/**", "/quote/**","/chart/**")
                                 .uri("lb://progress-service"))
                         .route("habit-service",r -> r
                                 .path("/habit/**")
