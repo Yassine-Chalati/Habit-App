@@ -132,6 +132,14 @@ docker stop prometheus || true
 docker rm prometheus || true
 docker rmi prom/prometheus || true
 
+docker stop progress-service || true
+docker rm progress-service || true
+docker rmi progress-service || true
+
+docker stop habit-service || true
+docker rm habit-service || true
+docker rmi habit-service || true
+
 docker stop profile-service || true
 docker rm profile-service || true
 docker rmi profile-service || true
