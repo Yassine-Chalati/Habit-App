@@ -21,7 +21,6 @@ spring:
             - emailing-service/
             - gateway-service/
             - habit-service/
-            - notification-service/
             - progress-service/
             - profile-service/
         bootstrap: true
