@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "profile-service", configuration = ProgressConfiguration.class)
+@FeignClient(name = "progress-service", configuration = ProgressConfiguration.class)
 public interface ProgressClient {
     @PostMapping("/reward/update")
     public ResponseEntity<RewardRequestResponseHttp> updateStreak(@RequestBody RewardRequestHttp request);

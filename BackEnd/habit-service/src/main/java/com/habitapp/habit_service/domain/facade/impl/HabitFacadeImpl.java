@@ -27,7 +27,12 @@ public class HabitFacadeImpl implements HabitFacade {
 
     @Override
     public Habit createNewHabit(Habit habit) throws Exception {
-        Habit newHabit = habitService.createNewHabit(habit);
+        Habit newHabit;
+        try {
+            newHabit = habitService.createNewHabit(habit);
+        } catch (IllegalArgumentException e) {
+            throw new Exception(e);
+        }
         try {
             progressProxy.saveOrUpdateCharts(habit.getIdUser(), false, false, true, false);
         } catch (UnauthorizedException | UnexpectedException e) {
