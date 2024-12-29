@@ -138,6 +138,41 @@ services:
     networks:
       - habit-app
 
+  progress-service:
+    hostname: progress-service
+    build:
+      context: ./progress-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=progress-service-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - gateway-service
+    image: progress-service
+    container_name: progress-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - "8005:8005"
+    networks:
+      - habit-app
+
+  habit-service:
+    hostname: habit-service
+    build:
+      context: ./habit-service
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=habit-service-0.0.1-SNAPSHOT.jar
+    depends_on:
+      - gateway-service
+    image: habit-service
+    container_name: habit-service
+    env_file:
+      - ./environment/registry-information.env
+    ports:
+      - "8003:8003"
+    networks:
+      - habit-app
 
 volumes:
   mysql-data:
