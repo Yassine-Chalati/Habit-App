@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   signinForm: FormGroup;
   hide = true;
 
-  apiUrl = 'http://77.37.86.136:8002/authentication/individual/default'; // API URL
+  apiUrl = 'http://77.37.86.136:8011/authentication/individual/default'; // API URL
 
   constructor(
     private fb: FormBuilder,

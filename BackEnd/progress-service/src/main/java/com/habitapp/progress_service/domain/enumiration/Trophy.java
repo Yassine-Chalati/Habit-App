@@ -1,11 +1,17 @@
 package com.habitapp.progress_service.domain.enumiration;
 
 public enum Trophy {
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN;
+    BRONZE,
+    SILVER,
+    GOLD,
+    PLATINUM,
+    DIAMOND;
+
+    public static Trophy fromString(String value) {
+        try {
+            return value != null ? Trophy.valueOf(value.toUpperCase()) : BRONZE;
+        } catch (IllegalArgumentException e) {
+            return BRONZE;
+        }
+    }
 }
