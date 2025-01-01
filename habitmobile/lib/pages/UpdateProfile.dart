@@ -35,7 +35,7 @@ class UpdateProfileScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100),
                       child: const Image(
                           image: AssetImage(
-                              'assets/profile_image.jpg')), // Remplacez par votre image
+                              'assets/profile.jpeg')), // Remplacez par votre image
                     ),
                   ),
                   Positioned(
