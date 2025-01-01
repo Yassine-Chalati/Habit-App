@@ -1,6 +1,6 @@
 {
-    "name": "habit_app",
-    "short_name": "habit_app",
+    "name": "habitmobile",
+    "short_name": "habitmobile",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
