@@ -5,9 +5,16 @@ import 'package:habitmobile/data/habit_list.dart';
 import 'package:habitmobile/util/habit_tile/habit_tile.dart';
 import 'package:habitmobile/pages/bottom_sheet.dart';
 import 'package:habitmobile/pages/user_datapage.dart';
+import 'package:habitmobile/data/quote.dart';
+import 'package:habitmobile/widgets/quotewidget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Quote dailyQuote = Quote(
+    text: "The secret of getting ahead is getting started",
+    author: "Mark Twain",
+  );
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +28,37 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon:
-                const Icon(Icons.person), // Icône pour les données utilisateur
+            icon: const Icon(Icons.person), // Icon for user data.
             onPressed: () {
-              // Navigation vers la page des données utilisateur
+              // Navigate to the user data page.
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        const UserDatapage()), // Page des données utilisateur
+                        const UserDatapage()), // User data page.
               );
             },
           ),
         ],
       ),
-      body: const HabitView(),
+      body: Column(
+        children: [
+          // Displaying the daily quote.
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              '"${dailyQuote.text}"\n- ${dailyQuote.author}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ),
+          // Habit view displayed below the quote.
+          const Expanded(child: HabitView()),
+        ],
+      ),
     );
   }
 }
