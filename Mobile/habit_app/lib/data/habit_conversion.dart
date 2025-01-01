@@ -6,7 +6,22 @@ Color stringToColor(String s) {
 }
 
 String colorToString(Color? c) {
-  return c.toString().split('(0x')[1].split(')')[0];
+  if (c == null) {
+    return ''; // ou une valeur par défaut si c'est autorisé
+  }
+  try {
+    var colorString = c.toString();
+    var splitColor = colorString.split('(0x');
+    if (splitColor.length > 1) {
+      return splitColor[1].split(')')[0];
+    } else {
+      print("Format de couleur incorrect: $colorString");
+      return '000000'; // Valeur par défaut
+    }
+  } catch (e) {
+    print("Erreur lors de la conversion de la couleur: $e");
+    return '000000'; // Valeur par défaut en cas d'erreur
+  }
 }
 
 String timeToString(TimeOfDay time) {
@@ -35,7 +50,8 @@ String dateToString(DateTime date) {
 Map<DateTime, bool> yearMapFromMemory(Map<String, bool> savedMap) {
   Map<DateTime, bool> yearMap = {};
   for (var k in savedMap.keys) {
-    yearMap[stringToDate(k)] = savedMap[k]!;
+    yearMap[stringToDate(k)] =
+        savedMap[k]!; // Assurez-vous que savedMap[k] n'est pas null
   }
   return yearMap;
 }
@@ -43,7 +59,8 @@ Map<DateTime, bool> yearMapFromMemory(Map<String, bool> savedMap) {
 Map<String, bool> yearMapToMemory(Map<DateTime, bool> yearMap) {
   Map<String, bool> savedMap = {};
   for (var k in yearMap.keys) {
-    savedMap[dateToString(k)] = yearMap[k]!;
+    savedMap[dateToString(k)] =
+        yearMap[k]!; // Assurez-vous que yearMap[k] n'est pas null
   }
   return savedMap;
 }

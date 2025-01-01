@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Assurez-vous d'importer Get pour la navigation
-import 'package:habitmobile/pages/UpdateProfile.dart'; // Assurez-vous d'importer la page UpdateProfileScreen
+import 'package:habitmobile/pages/UpdateProfile.dart';
 
 class UserDatapage extends StatefulWidget {
   const UserDatapage({super.key});
@@ -11,9 +11,9 @@ class UserDatapage extends StatefulWidget {
 
 class _ProfilePageState extends State<UserDatapage> {
   // Données simulées de l'utilisateur
-  String firstName = "John";
-  String lastName = "Doe";
-  String email = "john.doe@example.com";
+  String firstName = "AFZAZ";
+  String lastName = "Yasser";
+  String email = "yasserafzaz462@gmail.com";
   String gender = "M"; // M ou F
 
   @override
@@ -32,7 +32,27 @@ class _ProfilePageState extends State<UserDatapage> {
               const SizedBox(height: 20),
               CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assets/images/profile.png'),
+                backgroundImage:
+                    AssetImage('assets/profile.jpeg'), // Chemin corrigé
+              ),
+              const SizedBox(height: 10),
+
+              // Ajout du trophée bronze sous l'image de profil
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.emoji_events, // Icône de trophée
+                    color: Colors.brown, // Couleur bronze
+                    size: 40,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Bronze Trophy', // Texte pour le trophée
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold, color: Colors.brown),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
 

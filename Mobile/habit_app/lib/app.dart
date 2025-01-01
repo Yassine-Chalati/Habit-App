@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             themeMode: ThemeMode.dark,
-            home: habitList.isNew ? const OnboardingPage() : const HomePage()),
+            home: habitList.isNew ? const OnboardingPage() : HomePage()),
       );
     });
   }

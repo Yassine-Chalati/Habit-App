@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
-@RequestMapping("/reward")
+    @RequestMapping("/reward")
 public class RewardController {
     private final RewardService rewardService;
 
