@@ -57,6 +57,7 @@ public class HabitFacadeImpl implements HabitFacade {
         Habit checkedHabit = habitService.checkHabit(idHabit, checked);
         try {
             progressProxy.saveOrUpdateCharts(checkedHabit.getIdUser(), checked, !checked, false, false);
+            progressProxy.updateStreak(checkedHabit.getIdUser(), checked);
         } catch (UnauthorizedException | UnexpectedException e) {
             habitService.checkHabit(idHabit, !checked);
             throw new Exception(e);
