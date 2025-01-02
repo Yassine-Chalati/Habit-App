@@ -22,7 +22,7 @@ import java.util.List;
 public class HabitController {
     private final HabitFacade habitFacade;
 
-    @GetMapping("/read/today")
+    @PostMapping("/read/today")
     public ResponseEntity<List<HabitRequestResponseHttp>> readAllHabitsByUserAndCurrentDay(@RequestBody Long idUser) {
         List<HabitRequestResponseHttp> habits = habitFacade.readAllHabitsByUserAndCurrentDay(idUser).stream().map(newHabit -> new HabitRequestResponseHttp(newHabit.getId(), newHabit.getIdUser(), newHabit.getName(), newHabit.isChecked(), newHabit.getFrequency().getId().isDaily(), newHabit.getFrequency().getId().isWeekly(), newHabit.getFrequency().getId().isMonthly(), newHabit.getRemainder().getDate(), newHabit.getGoals().stream().map(goal -> new GoalRequestResponseHttp(goal.getId(), goal.getName(), goal.getChecked())).toList())).toList();
         return new ResponseEntity<>(habits, HttpStatus.OK);
