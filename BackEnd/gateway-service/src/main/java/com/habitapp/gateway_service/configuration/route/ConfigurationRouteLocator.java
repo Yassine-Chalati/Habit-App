@@ -18,19 +18,39 @@ public class ConfigurationRouteLocator {
                 return routeLocatorBuilder.routes()
                         .route("authentication-service",r -> r
                                 .path("/authentication/**", "/account/**")
-                                .uri("lb://authentication-service"))
+                                .filters(f -> f
+                                        .addResponseHeader("Access-Control-Allow-Origin", "*")
+                                )
+                                .uri("lb://authentication-service")
+                        )
                         .route("profile-service",r -> r
                                 .path("/api/individuals/**")
-                                .uri("lb://profile-service"))
+                                .filters(f -> f
+                                        .addResponseHeader("Access-Control-Allow-Origin", "*")
+                                )
+                                .uri("lb://profile-service")
+                        )
                         .route("progress-service",r -> r
                                 .path("/progress/**", "/reward/**", "/quote/**","/chart/**")
-                                .uri("lb://progress-service"))
+                                .filters(f -> f
+                                        .addResponseHeader("Access-Control-Allow-Origin", "*")
+                                )
+                                .uri("lb://progress-service")
+                        )
                         .route("habit-service",r -> r
                                 .path("/habit/**")
-                                .uri("lb://habit-service"))
+                                .filters(f -> f
+                                        .addResponseHeader("Access-Control-Allow-Origin", "*")
+                                )
+                                .uri("lb://habit-service")
+                        )
                         .route("emailing-service",r -> r
                                 .path("/email/**")
-                                .uri("lb://emailing-service"))
+                                .filters(f -> f
+                                        .addResponseHeader("Access-Control-Allow-Origin", "*")
+                                )
+                                .uri("lb://emailing-service")
+                        )
                         .build();
         }
 }
