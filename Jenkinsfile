@@ -191,6 +191,16 @@ docker rmi ai-model-equation-diffirential || true
 docker build -t ai-model-equation-diffirential .
 
 docker run -d -p 5000:5000 --name ai-model-equation-diffirential ai-model-equation-diffirential'''
+        sh '''cd FrontEnd
+cd habit_app
+
+docker stop frontend-habit-app || true
+docker rm frontend-habit-app || true
+docker rmi frontend-habit-app || true
+
+docker build -t frontend-habit-app .
+
+docker run -d -p 4201:4201 --name frontend-habit-app frontend-habit-app'''
       }
     }
 
