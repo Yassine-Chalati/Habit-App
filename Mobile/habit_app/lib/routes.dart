@@ -20,9 +20,7 @@ class Routes {
         name: register,
         page: () =>
             const RegisterPage()), // Route pour la page d'enregistrement
-    GetPage(
-        name: home,
-        page: () => const HomePage()), // Route pour la page d'accueil
+    GetPage(name: home, page: () => HomePage()), // Route pour la page d'accueil
     GetPage(
         name: onboarding,
         page: () => const OnboardingPage()), // Route pour la page onboarding
